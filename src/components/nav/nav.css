@@ -1,0 +1,22 @@
+.innerNavContainer {
+  background-color: white;
+}
+
+.navUl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 10;
+}
+
+.navButtonLi {
+  display: inline-block;
+  padding: 6px 0 6px 0;
+  margin: 0 6px 0 6px;
+  font-size: 16px;
+  color: #666666
+}
+
+.navButton:hover {
+  color: black;
+}

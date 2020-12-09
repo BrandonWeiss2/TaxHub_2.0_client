@@ -1,0 +1,61 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.headerLeftDiv {
+  display: inline-block;
+}
+
+.headerLogo {
+  height: 100%;
+}
+
+.headerUser {
+  position: absolute;
+  font-size: 16px;
+  height: 15px;
+  margin-top: 2.5px;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.headerRightDiv {
+  display: inline-block;
+}
+
+.headerNavUl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.headerNavLi, .headerNavLiLogout {
+  display: inline-block;
+  padding-left: 6px;
+  padding-right: 6px;
+  font-size: 16px;
+  color: #666666;
+}
+
+.headerNavLiLogout {
+  padding: 0px 10px 3px 10px;
+  margin-left: 6px;
+}
+
+.headerNavLi:hover {
+  color: black;
+}
+
+.headerNavLiLogout:hover {
+  border-color: black;
+  color: black;
+}
+
+.headerNavLiLogout {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+}

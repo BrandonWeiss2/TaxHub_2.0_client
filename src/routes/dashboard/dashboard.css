@@ -1,0 +1,50 @@
+.navContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1px;
+  z-index: 10;
+  border-bottom: 1px solid lightgrey;
+  background-color: white;
+}
+
+.whiteBackground {
+  background-color: white;
+}
+
+.innerNavContainer, .innerHeaderContainer{ 
+  max-width: 1000px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.dashboardBodyContainer {
+  background-color: #FAFAFA;
+}
+.dashboardBody {
+  max-width: 1000px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dashboardClientCards {
+  flex: 4;
+  margin-right: 25px;
+}
+
+.dashboardDueSoon {
+  margin-left: 25px;
+  flex: 2;
+  min-width: 300px;
+}
+
+.buffer {
+  color: #FAFAFA;
+}
