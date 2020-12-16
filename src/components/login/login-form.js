@@ -29,6 +29,7 @@ export default class LoginForm extends Component {
         username.value = ''
         password.value = ''
         TokenService.saveAuthToken(res.authToken)
+        this.context.handleSetUserName(res.firstName, res.lastName)
         this.props.onLoginSuccess()
       })
       .catch(res => {
@@ -48,11 +49,11 @@ export default class LoginForm extends Component {
             <h2>Sign in to TaxHub</h2>
           </div>
           <div className='loginFormBody'>
-            <label htmlFor='loginFormUsername'>Username</label>
-            <input className='loginFormUsername' name='username' type='text' required id='loginFormUsername'></input>
+            <label htmlFor='loginFormUsername' className='loginFormLabel'>Username</label>
+            <input className='loginFormInput' name='username' type='text' required id='loginFormUsername'></input>
             <br></br>
-            <label htmlFor='loginFormPassword'>Password</label>
-            <input className='loginFormPassword' name='password' type='text' required id='loginFormPassword'></input>
+            <label htmlFor='loginFormPassword' className='loginFormLabel'>Password</label>
+            <input className='loginFormInput' name='password' type='text' required id='loginFormPassword'></input>
             <br></br>
             <button type='submit' className='loginFormButton'>Sign in</button>
             {this.state.error && <div className='errorMessage'>{this.state.error}</div>}

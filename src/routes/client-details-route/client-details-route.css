@@ -1,0 +1,17 @@
+.clientsDetailsBodyHeaderWrapper, .clientsDetailsBodyWrapper {
+  max-width: 1000px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.clientsDetailsBody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}

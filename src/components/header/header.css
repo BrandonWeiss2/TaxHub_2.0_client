@@ -8,6 +8,7 @@
 
 .headerLeftDiv {
   display: inline-block;
+  width: 150px;
 }
 
 .headerLogo {
@@ -33,7 +34,7 @@
   list-style: none;
 }
 
-.headerNavLi, .headerNavLiLogout {
+.headerNavLi {
   display: inline-block;
   padding-left: 6px;
   padding-right: 6px;
@@ -42,20 +43,9 @@
 }
 
 .headerNavLiLogout {
-  padding: 0px 10px 3px 10px;
-  margin-left: 6px;
+  display: inline-block;
 }
 
 .headerNavLi:hover {
   color: black;
-}
-
-.headerNavLiLogout:hover {
-  border-color: black;
-  color: black;
-}
-
-.headerNavLiLogout {
-  border: 1px solid lightgrey;
-  border-radius: 4px;
 }

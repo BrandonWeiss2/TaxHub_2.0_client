@@ -1,16 +1,7 @@
 body{
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;  
-  background-color: #f9f9f9;
-}
-
-.registerForm {
-  display: block;
-  margin-bottom: 10px;
-  border-radius: 6px;
-  border: 1px solid #d8dee2;
-  background-color: white;
-  padding: 20px;
+  background-color: #FAFAFA
 }
 
 .formContainer{
@@ -20,19 +11,50 @@ body{
   padding-left: 16px
 }
 
-.registerFormHeader {
+.loginForm{
+  display: block;
+  margin-bottom: 10px;
+}
+
+.loginFormHeader {
   margin-bottom: 15px;
   font-size: 15px;
   letter-spacing: -.5px;
   text-align: center;
 }
 
-.registerLogoPic {
+.loginLogoPic {
   padding-top: 10px;
   height: 70px;
 }
 
-.registerFormButton {
+.loginFormBody {
+  border-radius: 6px;
+  border: 1px solid #d8dee2;
+  background-color: white;
+  padding: 20px;
+}
+
+.loginFormLabel {
+  display: block;
+  margin-bottom: 7px;
+  text-align: left;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.loginFormInput {
+  margin-top: 3px;
+  margin-bottom: 10px;
+  display: block;
+  width: 96%;
+  height: 19px;
+  background-color: rgb(232, 240, 254) !important;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+}
+
+.loginFormButton {
   display: block;
   width: 100%;
   text-align: center;
@@ -43,7 +65,6 @@ body{
   line-height: 20px;
   white-space: nowrap;
   cursor: pointer;
-  border: 1px solid;
   border-radius: 6px;
   color: #fff;
   background-color: #2ea44f !important;
@@ -51,13 +72,7 @@ body{
   box-shadow: 0 1px 0 rgba(27,31,35,.1), inset 0 1px 0 hsla(0,0%,100%,.03);
 }
 
-.registerLogoPic {
-  padding-top: 10px;
-  height: 70px;
-}
-
-
-.loginLink {
+.createAccountLink {
   border: 1px solid #d8dee2;
   border-radius: 6px;
   margin-top: 15px;

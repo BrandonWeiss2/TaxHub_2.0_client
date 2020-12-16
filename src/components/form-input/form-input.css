@@ -1,0 +1,27 @@
+.generalFormLabel{
+  margin-bottom: 10px;
+  display: block;
+  font-size: 16px;
+}
+
+.generalFormInput{
+  margin-bottom: 10px;
+  display: block;
+  padding-left: 6px;
+  width: 100%;
+  height: 1.6em;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease 0s, color 0.2s ease 0, width  0.2s ease 0s, color 0.2s ease 0s;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s, width  0.2s ease 0s, color 0.2s ease 0s;
+  font-size: 16px;
+}
+
+.generalFormInput:focus{
+  padding-left: 6px;
+  outline: none;
+  height: 1.6em;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+}

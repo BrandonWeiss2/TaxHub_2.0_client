@@ -43,17 +43,17 @@ export default class RegisterForm extends Component {
           className='registerForm'
           onSubmit={this.handleSubmit}
         >
-          <label htmlFor='registerFormFirstName'>First name</label>
-          <input className='registerFormFirstName' name='firstName' type='text' required id='registerFormFirstName'></input>
+          <label htmlFor='registerFormFirstName' className='registerFormLabel'>First name</label>
+          <input className='registerFormInput' name='firstName' type='text' required id='registerFormFirstName'></input>
           <br></br>
-          <label htmlFor='registerFormLastName'>Last name</label>
-          <input className='registerFormLastName' name='lastName' type='text' required id='registerFormLastName'></input>
+          <label htmlFor='registerFormLastName' className='registerFormLabel'>Last name</label>
+          <input className='registerFormInput' name='lastName' type='text' required id='registerFormLastName'></input>
           <br></br>
-          <label htmlFor='registerFormUsername'>Username</label>
-          <input className='registerFormUsername' name='username' type='text' required id='registerFormUsername'></input>
+          <label htmlFor='registerFormUsername' className='registerFormLabel'>Username</label>
+          <input className='registerFormInput' name='username' type='text' required id='registerFormUsername'></input>
           <br></br>
-          <label htmlFor='registerFormPassword'>Password</label>
-          <input className='registerFormPassword' name='password' type='text' required id='registerFormPassword'></input>
+          <label htmlFor='registerFormPassword' className='registerFormLabel'>Password</label>
+          <input className='registerFormInput' name='password' type='text' required id='registerFormPassword'></input>
           <br></br>
           <button type='submit' className='registerFormButton'>Register</button>
           {this.state.error && <div className='errorMessage'>{this.state.error}</div>}

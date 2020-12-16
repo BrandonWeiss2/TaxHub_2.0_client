@@ -1,0 +1,22 @@
+/* .MuiCheckbox-root {
+  color: #666666 !important;
+}
+
+.MuiDataGrid-columnsContainer {
+  color: black;
+  font-size: 16px;
+  font-weight: 200000;
+}
+
+.MuiDataGrid-iconSeparator {
+  color: white !important;
+}
+ */
+
+.clientVisitCell:hover {
+background-color: #9ec3e6;
+}
+
+.MuiTablePagination-root {
+  overflow: visible !important;
+}

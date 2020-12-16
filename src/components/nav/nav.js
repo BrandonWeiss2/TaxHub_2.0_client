@@ -4,7 +4,7 @@ import './nav.css'
 
 export default class Nav extends Component {
   static defaultProps = {
-    buttons: []
+    buttons: [{name: 'Dashboard', route: 'dashboard'}, {name: 'Clients', route: 'clients'}, {name: 'Search', route: 'search'}, {name: 'Reminders', route: 'reminders'}]
   }
   
   // renderNavButtons will take in one of the nested arrays from the nav-buttons-array as a prop from the route calling the Nav component
@@ -12,8 +12,9 @@ export default class Nav extends Component {
     return buttons.map((button, index) =>
       <NavButton
         key={index}
-        buttonName={button.name}
-        handleClick={button.handleClick}
+        name={button.name}
+        route={button.route}
+        history={this.props.history}
       />
     )
   }
@@ -25,7 +26,6 @@ export default class Nav extends Component {
           {this.renderNavButtons(this.props.buttons)}
         </ul>
       </div>
-
     )
   }
 }

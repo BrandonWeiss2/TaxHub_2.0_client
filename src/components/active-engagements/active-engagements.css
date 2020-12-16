@@ -1,0 +1,59 @@
+.activeEngagementCardContainer {
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.02);
+  margin-bottom: 30px;
+  flex: 1;
+  min-width: 350px;
+  max-width: 490px;
+}
+
+.activeEngagementTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activeEngagementBodyContainer {
+  margin-bottom: 20px;
+}
+
+.activeEngagementItem {
+  margin-left: 20px;
+}
+
+.activeEngagementCardTitle {
+  margin-left: 15px;
+}
+
+.activeEngagementTitle {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.activeEngagementSpan {
+  display: block;
+  margin-left: 25px;
+  margin-bottom: 5px;
+}
+
+.visitActiveEngagementButton{
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 16px;
+  color: #666666;
+  padding: 3px 10px 3px 10px;
+  margin-left: 6px;
+  margin-right: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s;
+  height: 24.6px;
+  background-color: transparent;
+}
+
+.visitActiveEngagementButton:hover {
+  border-color: black;
+  color: black;
+}

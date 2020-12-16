@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import LoginForm from '../../components/login/login-form';
-import './login-page.css';
+import './login-route.css';
 
-export default class LoginPage extends Component {
+export default class LoginRoute extends Component {
   static defaultProps = {
     history: {
       push: () => {}

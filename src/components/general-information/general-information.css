@@ -1,0 +1,86 @@
+.generalInformationCardContainer {
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.02);
+  margin-bottom: 30px;
+  flex: 1;
+  min-width: 350px;
+  max-width: 490px;
+}
+
+.generalInformationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generalInformationTitle {
+  margin: 10px 0 10px 10px;
+  
+}
+
+.generalInformationBodyContainer {
+  margin-bottom: 20px;
+}
+
+.generalInformationSpan {
+  display: block;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.editGeneralInfoButton{
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 16px;
+  color: #666666;
+  padding: 3px 10px 3px 10px;
+  margin-top: 5px;
+  margin-left: 20px;
+  margin-right: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s;
+  height: 24.6px;
+  background-color: transparent;
+}
+
+.editGeneralInfoButton:hover {
+  border-color: black;
+  color: black;
+}
+
+.editGeneralInformationlabel {
+  width: 100px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.editGeneralInformationInput {
+  margin-bottom: 10px;
+  padding-left: 6px;
+  height: 1.6em;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease 0s, color 0.2s ease 0, width  0.2s ease 0s, color 0.2s ease 0s;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s, width  0.2s ease 0s, color 0.2s ease 0s;
+  font-size: 14px;
+}
+
+.editGeneralInformationInput:focus {
+  padding-left: 6px;
+  outline: none;
+  height: 1.6em;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.generInfoInputLabelContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+  width: 275px;
+}

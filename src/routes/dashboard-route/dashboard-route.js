@@ -4,23 +4,36 @@ import TaxHubContext from '../../context/taxhub-context';
 import ClientCard from '../../components/client-card/client-card'
 import Header from '../../components/header/header'
 import Nav from '../../components/nav/nav'
-import { navButtonsArr } from '../../components/nav/nav-buttons-array'
-import './dashboard.css'
+import './dashboard-route.css'
 
-export default class Dashboard extends Component {
+export default class DashboardRoute extends Component {
+  state = {
+    clientList: this.context.clientList
+  }
+
   // Is there a way to add a box-shadow effect to the bottom of the sticky nav bar when it becomes "stuck", or the page has detected it has been scrolled.
   static contextType = TaxHubContext;
 
   componentDidMount() {
-    ClientApiService.getClients()
-      .then(this.context.setClientList)
+    ClientApiService.getClientsByUser()
+      .then(res => {
+        this.context.setClientList(res)
+        this.setState({
+          clientList: res
+        })
+      })
   };
 
   renderClientCards = (clients) => {
     return clients.map((client, index) => 
       <ClientCard
         key={index}
+        clientId={client.clientId}
         name={client.clientName}
+        yearEnd={client.yearEnd}
+        entityType={client.entityType}
+        status={client.status}
+        history={this.props.history}
       />
     )
   }
@@ -39,14 +52,14 @@ export default class Dashboard extends Component {
             </div>
             <nav id='navbar' className='navContainer'>
               <Nav 
-                buttons={navButtonsArr[0]}
+                history={this.props.history}
               />
             </nav>
             <div className='dashboardBodyContainer'>
-              <div className='buffer'>k</div>
+              <br/>
               <div className='dashboardBody'>
                 <div className='dashboardClientCards'>
-                  {this.renderClientCards(this.context.clientList)}
+                  {this.renderClientCards(this.state.clientList)}
                 </div>
                 <div className='dashboardDueSoon'>
                   <span>Forms Due Soon:</span>

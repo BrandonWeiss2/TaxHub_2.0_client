@@ -1,0 +1,41 @@
+.bodyHeaderContainer{
+  max-width: 1000px;
+  width: 100%;
+}
+
+.bodyHeaderTitleContainer {
+  margin-bottom: 20px;
+}
+
+.bodyHeaderTitle {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0px;
+}
+
+.bodyHeaderDescription {
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px;
+}
+
+.bodyHeaderFunctionContainer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bodyHeaderButtonContainer {
+  display: flex;
+  position: relative;
+  float: left;
+  width: 132px;
+}
+
+.bodyHeaderButtonWrapper {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}

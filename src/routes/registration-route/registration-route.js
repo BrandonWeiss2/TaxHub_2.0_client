@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import RegisterForm from '../../components/register/register-form';
-import './register-page.css';
+import RegisterForm from '../../components/registration/registration-form';
+import './registration-route.css';
 
-export default class RegistrationPage extends Component {
+export default class RegistrationRoute extends Component {
   static defaultProps = {
     history: {
       push: () => {}
