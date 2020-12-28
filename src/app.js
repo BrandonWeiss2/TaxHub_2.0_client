@@ -5,6 +5,7 @@ import Dashboard from './routes/dashboard-route/dashboard-route'
 import Registration from './routes/registration-route/registration-route';
 import Clients from './routes/clients-route/clients-route';
 import ClientDetails from './routes/client-details-route/client-details-route';
+import EngagementsRoute from './routes/engagements-route/engagementes-route';
 
 export default class App extends Component {
   render () {
@@ -34,6 +35,11 @@ export default class App extends Component {
           exact
           path='/overview/:id'
           component={ClientDetails}
+        />
+        <Route
+          exact
+          path='/engagements/:id'
+          component={EngagementsRoute}
         />
       </Switch>
     )

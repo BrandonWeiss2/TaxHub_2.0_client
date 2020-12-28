@@ -6,6 +6,12 @@ const TaxHubContext = React.createContext({
   createClient: false,
   userFirstName: '',
   userLastName: '',
+  currentClientSelected: '',
+  createEngagment: '',
+  createFilingYear: '',
+  handleSetCreateFilingYear: () => {},
+  handleSetCreateEngagement: () => {},
+  setCurrentClientSelected: () => {},
   getClientById: () => {},
   handleSetUserName: () => {},
   handleSetCreateClient: () => {},
@@ -20,12 +26,29 @@ export class TaxHubProvider extends Component {
     createClient: false,
     userFirstName: 'TaxHub',
     userLastName: 'User',
+    currentClientSelected: '',
+    createEngagment: '',
+    createFilingYear: '',
   };
 
   static defaultProps = {
     history: {
       push: () => {}
     },
+  }
+
+  handleSetCreateFilingYear = (val) => {
+    this.setState({ createFilingYear: val })
+  }
+
+  handleSetCreateEngagement = (val) => {
+    this.setState({ createEngagment: val })
+  }
+
+  setCurrentClientSelected = (client) => {
+    this.setState({
+      currentClientSelected: client
+    })
   }
 
   getClientById = (id) => {
@@ -51,9 +74,6 @@ export class TaxHubProvider extends Component {
 
   handleLogoutClick = () => {
     TokenService.clearAuthToken()
-    // this.setClientList([])
-    // this.setEntityList([])
-    // this.setReturnList([])
   }
 
   render() {
@@ -62,6 +82,12 @@ export class TaxHubProvider extends Component {
       createClient: this.state.createClient,
       userFirstName: this.state.userFirstName,
       userLastName: this.state.userLastName,
+      currentClientSelected: this.state.currentClientSelected,
+      createEngagment: this.state.createEngagment,
+      createFilingYear: this.state.createFilingYear,
+      handleSetCreateFilingYear: this.handleSetCreateFilingYear,
+      handleSetCreateEngagement: this.handleSetCreateEngagement,
+      setCurrentClientSelected: this.setCurrentClientSelected,
       getClientById: this.getClientById,
       handleSetUserName: this.handleSetUserName,
       handleSetCreateClient: this.handleSetCreateClient,

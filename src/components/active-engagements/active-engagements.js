@@ -20,8 +20,7 @@ export default class ActiveEngagements extends Component {
   
   renderActiveEngagements = () => {
     let render = this.props.activeEngagements.map(engagement => {
-      let precentCompleted = engagement.formsFinalized/engagement.totalForms
-      precentCompleted = Math.floor(precentCompleted * 100)
+      let precentCompleted = Math.floor(engagement.formsFinalized/engagement.totalForms * 100)
       return (
         <div className='activeEngagementItem'>
           <div className='activeEngagementTitleContainer'>

@@ -20,3 +20,7 @@ background-color: #9ec3e6;
 .MuiTablePagination-root {
   overflow: visible !important;
 }
+
+.MuiTableRow-root.Mui-selected {
+  background-color: lightgrey !important;
+}

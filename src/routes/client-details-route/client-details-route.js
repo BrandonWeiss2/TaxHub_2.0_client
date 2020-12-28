@@ -12,7 +12,7 @@ export default class ClientDetailsRoute extends Component {
   static contextType = Context
   
   state = {
-    buttons: [{name: 'Overview', route: 'overview/1'}, {name: 'Engagements', route: 'engagements/1'}, {name: 'Entities', route: 'entities/1'}, {name: 'Compliance', route: 'compliance/1'}],
+    buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Compliance', route: `compliance/${this.props.match.params.id}`}],
     currentClient: {
       clientId: '',
       clientName: '',
@@ -28,9 +28,9 @@ export default class ClientDetailsRoute extends Component {
   }
 
   componentDidMount () {
+    console.log(this.props.match.params)
     ClientApiService.getClientsByClientId(this.props.match.params.id)
       .then(res => {
-        console.log('component did mount', res)
         this.setState({
           currentClient: res
         })
@@ -38,7 +38,6 @@ export default class ClientDetailsRoute extends Component {
   }
 
   handleUpdateEditInfo = (value) => {
-    console.log('handleClickEdit')
     this.setState({
       editInfo: value
     })
@@ -51,7 +50,6 @@ export default class ClientDetailsRoute extends Component {
   }
   
   render() {
-    console.log('client list', this.context.clientList, this.state.currentClient)
     return (
       <div className='headerNavContainer'>
         <div className='headerInnerNavContainer'>
@@ -74,7 +72,7 @@ export default class ClientDetailsRoute extends Component {
               <div className='clientsBodyHeader'>
                 <ClientsDetailsBodyHeader
                   title={this.state.currentClient.clientName}
-                  description={`An overview of all of Big Tech Inc.'s engagements `}
+                  description={`An overview of ${this.state.currentClient.clientName}`}
                 />
               </div>
             </div>

@@ -41,7 +41,7 @@ export default class GeneralInformation extends Component {
           {!this.props.editInfo &&
           <div className='generalInformationCard'>
             <span className='generalInformationSpan'>Entity Type: {this.props.client.entityType}</span>
-            <span className='generalInformationSpan'>Year End: {this.props.client.yearEnd}</span>
+            <span className='generalInformationSpan'>Year End: {this.props.client.yearEnd.slice(5,10)}</span>
             <span className='generalInformationSpan'>Contact: {this.props.client.contactFirstName} {this.props.client.contactLastName}</span>
             <span className='generalInformationSpan'>Email: {this.props.client.contactEmail}</span>
             <span className='generalInformationSpan'>Phone Number: {this.props.client.contactPhoneNumber}</span>

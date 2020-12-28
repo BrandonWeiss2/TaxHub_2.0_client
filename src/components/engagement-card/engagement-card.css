@@ -1,0 +1,74 @@
+.engagementCardContainer {
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.02);
+  margin-bottom: 15px;
+  min-width: 350px;
+}
+
+.statusActiveEngagement {
+  font-size: 12px;
+  margin-left: 6px;
+  font-weight: 500;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 1px 5px 2px 5px;
+}
+
+.statusInactiveEngagement {
+  color: #9ec3e6;
+  font-size: 12px;
+  margin-left: 6px;
+  font-weight: 500;
+  border: 1px solid #9ec3e6;
+  border-radius: 4px;
+  padding: 1px 5px 2px 5px;
+}
+
+.engagementCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.engagementH3 {
+  margin: 10px 0 10px 10px;
+}
+
+.engagementCardName {
+  display: flex;
+  align-items: center;
+}
+
+.engagementsExpandButton {
+  margin-right: 10px;
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+  outline: inherit;
+  transition: color 0.2s ease 0s;
+}
+
+.engagementsExpandButton:hover {
+  color: #9ec3e6
+}
+
+.engagementCardBody {
+  max-height: 3000px;
+  visibility: visible;
+  transition: max-height 5000ms ease 0s;
+}
+
+.hidden {
+  margin: none;
+  padding: none;
+  visibility: hidden;
+  max-height: 0px;
+  transition: max-height 1000ms ease 0s
+}
+
+

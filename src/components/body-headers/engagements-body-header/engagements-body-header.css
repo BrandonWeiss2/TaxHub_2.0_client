@@ -1,0 +1,57 @@
+.engagementsBodyHeader {
+  width: 100%;
+}
+
+.bodyHeaderContainer{
+  max-width: 1000px;
+  width: 100%;
+}
+
+.bodyHeaderTitleContainer {
+  margin-bottom: 20px;
+}
+
+.bodyHeaderTitle {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0px;
+}
+
+.bodyHeaderDescription {
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px;
+}
+
+.bodyHeaderFunctionContainer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bodyHeaderButtonContainerEngagements {
+  display: flex;
+  position: relative;
+  float: left;
+  width: 305px;
+}
+
+.createEngagementButton, .createFilingYearButton {
+  display: block;
+  font-size: 16px;
+  color: #666666;
+  padding: 3px 10px 3px 10px;
+  margin-left: 6px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s;
+  height: 24.6px;
+  background-color: transparent;
+}
+
+.createEngagementButton:hover, .createFilingYearButton:hover {
+  border-color: black;
+  color: black;
+}

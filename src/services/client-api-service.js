@@ -41,6 +41,23 @@ const ClientApiService = {
           : res.json()
       )
   },
+  addClientToUser(clientId) {
+    return fetch(`${config.API_ENDPOINT}/clients/user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+      body: JSON.stringify({
+        client_id: clientId,
+      })  
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
   postClient(clientName, entityType, yearEnd, clientStatus) {
     return fetch(`${config.API_ENDPOINT}/clients`, {
       method: 'POST',

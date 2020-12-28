@@ -1,170 +1,6 @@
-// import React, { Component } from 'react'
-// import { DataGrid } from '@material-ui/data-grid';
-// import Context from '../../context/taxhub-context'
-// import './clients-table.css';
-
-// export default class ClientsTable extends Component {
-//   static contextType = Context
-
-//   render() {
-//     const columns = [
-//       { field: 'clientName', headerName: 'Client Name:', width: 450},
-//       { field: 'entityType', headerName: 'Entity Type:', width: 160 },
-//       { field: 'yearEnd', headerName: 'Year End:', width: 140 },
-//       { field: 'status', headerName: 'Status', width: 95 },
-//     ];
-
-//     const rows = this.context.clientList.map(client => {
-//       let clientStatus = 'Active'
-//       if(!client.status) {
-//         clientStatus = 'Inactive'
-//       }
-//       return (
-//         { id: client.clientId, clientName: client.clientName, entityType: client.entityType, yearEnd: client.yearEnd, status: clientStatus }
-//       )
-//     })
-
-//     return (
-//       <div style={{ height: 650, width: '100%', maxWidth: '1000px'}}>
-//         <DataGrid rows={rows} columns={columns} pageSize={10} disableMultipleSelection={true} />
-//       </div>
-//     )
-//   }
-// }
-
-// import React, { Component } from 'react'
-// import Context from '../../context/taxhub-context'
-// import ClientApiService from '../../services/client-api-service'
-// import { withStyles, makeStyles } from '@material-ui/core/styles';
-// import Table from '@material-ui/core/Table';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableContainer from '@material-ui/core/TableContainer';
-// import TableFooter from '@material-ui/core/TableFooter';
-// import TablePagination from '@material-ui/core/TablePagination';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
-// import Paper from '@material-ui/core/Paper';
-// import IconButton from '@material-ui/core/IconButton';
-// import FirstPageIcon from '@material-ui/icons/FirstPage';
-// import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-// import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-// import LastPageIcon from '@material-ui/icons/LastPage';
-// import './clients-table.css';
-
-// export default class ClientsTable extends Component {
-//   static contextType = Context
-
-//   state = {
-//     allClients: [],
-//   }
-
-//   componentDidMount () {
-//     console.log('componentDidMoutn')
-//     ClientApiService.getAllClients()
-//       .then(res => { 
-//         console.log('res',res)
-//         this.setState({
-//           allClients: res
-//         })
-//       })
-//   }
-
-//   render() {
-//     const useStyles2 = makeStyles({
-//   table: {
-//     minWidth: 500,
-//   },
-// });
-
-
-//     const StyledTableCell = withStyles((theme) => ({
-//       head: {
-//         backgroundColor: theme.palette.common.black,
-//         color: theme.palette.common.white,
-//       },
-//       body: {
-//         fontSize: 14,
-//       },
-//     }))(TableCell);
-
-//     const StyledTableRow = withStyles((theme) => ({
-//       root: {
-//         '&:nth-of-type(odd)': {
-//           backgroundColor: theme.palette.action.hover,
-//         },
-//       },
-//     }))(TableRow);
-
-//     function createData(id, clientName, entityType, yearEnd, status, link) {
-//       return { id, clientName, entityType, yearEnd, status, link };
-//     }
-
-//     const rows = this.state.allClients.map(client => {
-//       console.log('client', client)
-//       let link = ''
-//       let clientStatus = 'Active'
-//       if(!client.status) {
-//         clientStatus = 'Inactive'
-//       }
-//       return (
-//         createData(client.clientId, client.clientName, client.entityType, client.yearEnd, clientStatus, link)
-//       )
-//     })
-
-//     return (
-//       <TableContainer component={Paper}>
-//         <Table className={'clientsTable'} aria-label="customized table">
-//           <TableHead>
-//             <TableRow>
-//               <StyledTableCell>Id</StyledTableCell>
-//               <StyledTableCell>Client Name</StyledTableCell>
-//               <StyledTableCell align="right">Entity Type</StyledTableCell>
-//               <StyledTableCell align="right">Year End</StyledTableCell>
-//               <StyledTableCell align="right">Status</StyledTableCell>
-//               <StyledTableCell align="right"></StyledTableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {rows.map((row) => (
-//               <StyledTableRow key={row.id}>
-//                 <StyledTableCell>{row.id}</StyledTableCell>
-//                 <StyledTableCell component="th" scope="row">
-//                   {row.clientName}
-//                 </StyledTableCell>
-//                 <StyledTableCell align="right">{row.entityType}</StyledTableCell>
-//                 <StyledTableCell align="right">{row.yearEnd}</StyledTableCell>
-//                 <StyledTableCell align="right">{row.status}</StyledTableCell>
-//                 <StyledTableCell align="right">{row.link}</StyledTableCell>
-//               </StyledTableRow>
-//             ))}
-//           </TableBody>
-//           <TableFooter>
-//           <TableRow>
-//             <TablePagination
-//               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-//               colSpan={3}
-//               count={rows.length}
-//               rowsPerPage={rowsPerPage}
-//               page={page}
-//               SelectProps={{
-//                 inputProps: { 'aria-label': 'rows per page' },
-//                 native: true,
-//               }}
-//               onChangePage={handleChangePage}
-//               onChangeRowsPerPage={handleChangeRowsPerPage}
-//               ActionsComponent={TablePaginationActions}
-//             />
-//           </TableRow>
-//         </TableFooter>
-//         </Table>
-//       </TableContainer>
-//     )
-//   }
-// }
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ClientApiService from '../../services/client-api-service'
+import TaxHubContext from '../../context/taxhub-context'
 import PropTypes from 'prop-types';
 import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -183,7 +19,6 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
-
 import './clients-table.css';
 
 const useStyles1 = makeStyles((theme) => ({
@@ -258,10 +93,26 @@ const useStyles2 = makeStyles({
 });
 
 export default function CustomPaginationActionsTable(props) {
+  const context = useContext(TaxHubContext)
   const classes = useStyles2();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [allClients, setAllClients] = useState([]);
+  const [selected, setSelected] = useState([]);
+
+  //responsible for handleing the click to select a row
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = [id];
+    }
+    context.setCurrentClientSelected(id)
+    setSelected(newSelected);
+  };
+
+  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   useEffect(() => {
     ClientApiService.getAllClients()
@@ -281,7 +132,7 @@ export default function CustomPaginationActionsTable(props) {
       clientStatus = 'Inactive'
     }
     return (
-      createData(client.clientId, client.clientName, client.entityType, client.yearEnd, clientStatus, link)
+      createData(client.clientId, client.clientName, client.entityType, client.yearEnd.slice(5,10), clientStatus, link)
     )
   })
   
@@ -311,7 +162,6 @@ export default function CustomPaginationActionsTable(props) {
     props.history.push(`/overview/${clientId}`)
   };
 
-
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="custom pagination table">
@@ -329,8 +179,19 @@ export default function CustomPaginationActionsTable(props) {
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
-          ).map((row) => (
-            <TableRow key={row.id}>
+          ).map((row, index) => {
+            const isItemSelected = isSelected(row.id);
+            const labelId = `enhanced-table-checkbox-${index}`;
+            
+            return (
+            <TableRow 
+              key={row.id}
+              hover
+              onClick={(event) => handleClick(event, row.id)}
+              aria-checked={isItemSelected}
+              tabIndex={-1}
+              selected={isItemSelected}
+            >
               <TableCell style={{ width: 200 }} component="th" scope="row">
                 {row.clientName}
               </TableCell>
@@ -349,7 +210,7 @@ export default function CustomPaginationActionsTable(props) {
                 <FontAwesomeIcon icon={faEye} />
               </TableCell>
             </TableRow>
-          ))}
+          )})}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />

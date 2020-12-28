@@ -1,0 +1,163 @@
+.complianceTableContainer {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  margin: 0 10px 10px 10px;
+}
+
+.complianceTableRowContainer {
+  border-bottom: 1px solid lightgrey;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+
+.complianceTableRow {
+  margin-left: 5px;
+  display: flex;
+}
+
+.complianceTableColumnHeader {
+  display: flex;
+  border-bottom: 1px solid lightgrey;
+  padding-left: 5px;
+}
+
+
+h4 {
+  margin: 0 10px 0 15px;
+}
+
+.complianceTableHeaderContainer {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+}
+.complianceTableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.complianceTableHeaderContainer div span {
+  margin-left: 15px;
+}
+
+.complianceArrowDownButton {
+  margin-right: 10px;
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+  outline: inherit;
+}
+
+.compliancePlusButton, .complianceEditButton, .complianceTrashButton, .complianceCheckButton, .complianceCrossButton, .complianceSubmitEditButton {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+  outline: inherit;
+  font-size: 16px
+}
+
+.complianceEditToolsContainer {
+  display: flex;
+}
+
+.complianceEditTools {
+  margin-left: 10px;
+}
+
+.compliancePlusIcon, .complianceEditIcon, .complianceCheckButton, .complianceCrossButton, .complianceSubmitEditIcon {
+  color: black;
+  font-size: 16px;
+  transition: color 0.2s ease 0s;
+  margin-right: 10px;
+}
+
+
+.compliancePlusIcon:hover, .complianceEditIcon:hover, .complianceCheckButton:hover, .complianceSubmitEditIcon:hover {
+  color: #b1e5b9;
+  font-size: 16px;
+}
+
+.complianceArrowDownIcon, .complianceArrowUpIcon {
+  color: black;
+  transition: color 0.2s ease 0s;
+}
+
+.complianceArrowDownIcon:hover, .complianceArrowUpIcon:hover {
+  color: #9ec3e6;
+  transition: color 0.2s ease 0s;
+}
+
+.item2 {
+  flex: 2
+}
+
+.item1 {
+  flex: .5
+}
+
+.complianceTrashIcon {
+  color: black;
+  transition: color 0.2s ease 0s;
+}
+
+.complianceTrashIcon:hover, .complianceCrossButton:hover {
+  color: rgba(255, 0, 0, 0.5);
+}
+
+.addFormFormContainer {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  margin: 0 10px 10px 10px;
+}
+
+.addFormHeader {
+  display: flex;
+  border-bottom: 1px solid lightgrey;
+  padding-left: 5px;
+}
+
+.addFormForm {
+  display: flex !important;
+}
+
+.addFormInput, .addFormSelect, .editFormInput, .editFormSelect {
+  width: 95% ;
+  display: inline;
+  border: none;
+  background-color: transparent;
+}
+
+.addFormInput:focus, .addFormSelect:focus, .editFormInput:focus, .editFormSelect:focus {
+  outline: none;
+}
+
+.formItem {
+  flex: 2;
+  border-left: 1px solid lightgray;
+}
+
+.formItemLead {
+  flex: 2;
+}
+
+.formItemButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formItemButton {
+  flex: .5;
+  border-left: 1px solid lightgray;
+}
+
+.complianceSubmitEditIcon {
+  margin: auto;
+}

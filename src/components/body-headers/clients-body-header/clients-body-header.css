@@ -31,7 +31,7 @@
   display: flex;
   position: relative;
   float: left;
-  width: 132px;
+  width: 132px !important;
 }
 
 .bodyHeaderButtonWrapper {
