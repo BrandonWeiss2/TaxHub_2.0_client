@@ -1,87 +1,68 @@
 import React, { Component } from 'react'
-import FormInput from '../form-input/form-input'
 import PseudoButton from '../button/button'
 import Context from '../../context/taxhub-context'
-import ClientApiService from '../../services/client-api-service'
-import EntityApiService from '../../services/entity-api-service'
+import EngagementApiService from '../../services/engagement-api-service'
 import './create-engagment-form.css'
 
 
 export default class CreateEngagementForm extends Component {
   static contextType = Context
 
-  state = { error: null };
+  state = { 
+    error: null,
+    filingYears: [] 
+  };
+
+  componentDidMount = () => {
+    EngagementApiService.getFilingYears(this.props.clientId) 
+      .then(res => {
+        console.log('filing years', res)
+        this.setState({ filingYears: res })
+      })
+  }
 
   handleSubmitForm = async ev => {
     ev.preventDefault()
     this.setState({ error: null })
-    const { clientName, clientEIN, clientEntityType, clientYearEnd, clientStatus } = ev.target
-    let clientId = null
+    const { engagementType, filingYearId } = ev.target
   
-    await ClientApiService.postClient(clientName.value, clientEntityType.value, clientYearEnd.value, clientStatus.value)
+    await EngagementApiService.postEngagement(this.props.clientId, filingYearId.value, engagementType.value)
       .then(res => {
-        clientId = res.clientId
-        this.context.handleSetCreateClient(false)
-      })
-      .catch(res => {
-        this.setState({ error: res.error })
-      })
-    await EntityApiService.postEntity(clientId, clientName.value, clientEIN.value, true, clientEntityType.value, true)
-      .then(res => {
-        clientName.value = ''
-        clientEIN.value = ''
-        clientYearEnd.value = ''
+        this.context.handleSetCreateEngagement(false)
       })
       .catch(res => {
         this.setState({ error: res.error })
       })
   }
 
+  handleRenderFilingYearOptions = () => {
+    console.log('filing Year', this.state.filingYears)
+    return this.state.filingYears.map((filingYear) => {
+      return (
+        <option className='createEngagementOption' value={filingYear.filingYearId}>{filingYear.filingYear}</option>
+      )
+    })
+  }
+
   render() {
     return (
-      <form className='createClientForm' onSubmit={this.handleSubmitForm}>
-        <h2>Create A New Client</h2>
-        <div className='createClientFromBody'>
-          <FormInput 
-            id={'clientName'}
-            name={'clientName'}
-            label={`Please Enter The New Client's Full Legal Name:`}
-            inputClassName={'createClientInput'}
-          />
-          <FormInput 
-            id={'clienEIN'}
-            name={'clientEIN'}
-            label={`Please Enter The New Client's 9 digit EIN (XX-XXXXXXX):`}
-            inputClassName={'createClientInputEIN'}
-            maxLength={10}
-            pattern={'[0-9]{2}+[-]{1}+[0-9]{2}'}
-          />
-          <label className='createClientLabel' htmlFor='clientEntityType'>Please Select The New Client's Entity Type:</label>
-          <select className='createClientSelect' id='clientEntityType' name={'clientEntityType'}>
-            <option className='createClientOption' value={'C-Corp'}>C-Corp</option>
-            <option className='createClientOption' value={'S-Corp'}>S-Corpp</option>
-            <option className='createClientOption' value={'Partnership'}>Partnership</option>
-            <option className='createClientOption' value={'LLP'}>LLP</option>
-            <option className='createClientOption' value={'LLC'}>LLC</option>
-          </select>      
-          <FormInput 
-            id={'clientYearEnd'}
-            name={'clientYearEnd'}
-            label={`Please Enter The New Client's Year End (MM/YY):`}
-            inputClassName={'createClientInputYearEnd'}
-            maxLength={5}
-            pattern={'[0-1]{1}+[0-9]{1}+[/]{1}+[0-9]{2}'}
-          />
-          <label className='createClientLabel' htmlFor='clientStatus'>Please Select The New Client's Entity Type:</label>
-          <select className='createClientSelect' id='clientStatus' name={'clientStatus'}>
-            <option className='createClientOption' value={true}>Active</option>
-            <option className='createClientOption' value={false}>Inactive</option>
-          </select>  
+      <form className='createEngagementForm' onSubmit={this.handleSubmitForm}>
+        <h2>Create A New Engagment</h2>
+        <div className='createEngagementFromBody'>
+          <label className='createEngagementLabel' htmlFor='engagementType'>Please Select The New Engagement Type:</label>
+          <select className='createEngagementSelect' id='engagementType' name={'engagementType'}>
+            <option className='createEngagementOption' value={'extensions'}>Extensions</option>
+            <option className='createEngagementOption' value={'tax_returns'}>Tax Returns</option>
+          </select>    
+          <label className='createEngagementLabel' htmlFor='filingYearId'>Please Select The New Engagment's Filing Year:</label>
+          <select className='createEngagementSelect' id='filingYearId' name={'filingYearId'}>
+            {this.handleRenderFilingYearOptions()}
+          </select>          
         </div>
         {this.state.error && <div className='errorMessage'>{this.state.error}</div>}
-        <div className='createClientFormButtons'>
-          <PseudoButton type={'submit'} className={'createClientFormButton'} name={'Create'} />
-          <PseudoButton handleOnClick={() => this.context.handleSetCreateClient(false)} className={'cancelClientFormButton'} name={'Cancel'} />
+        <div className='createEngagementFormButtons'>
+          <PseudoButton type={'submit'} className={'createEngagementFormButton'} name={'Create'} />
+          <PseudoButton handleOnClick={() => this.context.handleSetCreateEngagement(false)} className={'cancelEngagementFormButton'} name={'Cancel'} />
         </div>
       </form>
     )

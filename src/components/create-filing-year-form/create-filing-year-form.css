@@ -2,3 +2,71 @@
   border: 1px solid lightgray;
   display: table;
 }
+
+.createFilingYearForm {
+  margin: auto;
+}
+
+.createFilingYearLabel, .createFilingYearSelect {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.createFilingYearFormButton, .cancelFilingYearFormButton {
+  background-color: transparent;
+  display: inline-block;
+  font-size: 16px;
+  color: #666666;
+  padding: 3px 10px 3px 10px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s;
+  height: 24.6px;
+}
+
+.cancelFilingYearFormButton {
+  margin-left: 40px;
+}
+
+.createFilingYearFormButton:hover, .cancelFilingYearFormButton:hover {
+  border-color: black;
+  color: black;
+}
+
+.createFilingYearFormButtons {
+  display: flex;
+  margin-top: 30px;
+}
+
+.createFilingYearSelect {
+  border-radius: 4px;
+  height: 29.6px;
+  width: 95px;
+}
+
+.createFilingYearInput, .createFilingYearInputYearEnd, .createFilingYearInputEIN {
+  margin-bottom: 10px;
+  display: block;
+  padding-left: 6px;
+  width: 98%;
+  height: 1.6em;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease 0s, color 0.2s ease 0, width  0.2s ease 0s, color 0.2s ease 0s;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s, width  0.2s ease 0s, color 0.2s ease 0s;
+  font-size: 16px;
+}
+
+.createFilingYearInputYearEnd, .createFilingYearInputEIN {
+  width: 87px;
+}
+
+.createFilingYearInput:focus{
+  padding-left: 6px;
+  outline: none;
+  height: 1.6em;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+}

@@ -15,6 +15,25 @@ const EngagementApiService = {
           : res.json()
       )
   },
+  postEngagement(clientId, filingYearId, engagementType) {
+    return fetch(`${config.API_ENDPOINT}/engagements/${clientId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+      body: JSON.stringify({
+        filing_year_id: filingYearId,
+        engagement_type: engagementType,
+        engagement_status: 'active',
+      })  
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
   getEngagementEntityForms(engagementType, engagementId, entityId) {
     console.log('getEngagmentEntityForms', engagementType, engagementId, entityId)
     return fetch(`${config.API_ENDPOINT}/engagements/${engagementType}/${engagementId}/${entityId}`, {
@@ -179,7 +198,26 @@ const EngagementApiService = {
           ? res.json().then(event => Promise.reject(event))  
           : res.json()
       )
-  }
+  },
+  postFilingYear(clientId, filingYear, yearEnd) {
+    return fetch(`${config.API_ENDPOINT}/engagements/filingYears/${clientId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+      body: JSON.stringify({
+        client_id: clientId,
+        filing_year: filingYear,
+        year_end: yearEnd,
+      })  
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
 }
 
 export default EngagementApiService

@@ -110,7 +110,9 @@ export default class EngagementsRoute extends Component {
             </>
             }
             {this.context.createEngagment &&
-            <CreateEngagementForm />
+            <CreateEngagementForm 
+              clientId={this.props.match.params.id}
+            />
             }
             {this.context.createFilingYear &&
             <CreateFilingYearForm 

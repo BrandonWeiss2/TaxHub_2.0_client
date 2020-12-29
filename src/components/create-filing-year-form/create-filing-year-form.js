@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import FormInput from '../form-input/form-input'
 import PseudoButton from '../button/button'
 import Context from '../../context/taxhub-context'
-import ClientApiService from '../../services/client-api-service'
-import EntityApiService from '../../services/entity-api-service'
-import './create-filing-year-form.css'
 import EngagementApiService from '../../services/engagement-api-service'
+import './create-filing-year-form.css'
+
 
 export default class CreateFilingYearForm extends Component {
   static contextType = Context
@@ -23,32 +22,16 @@ export default class CreateFilingYearForm extends Component {
       })
   }
 
-  handleSubmitForm = async ev => {
+  handleSubmitForm = ev => {
     ev.preventDefault()
     this.setState({ error: null })
-    const { clientName, clientEIN, clientEntityType, clientYearEnd, clientStatus } = ev.target
-    let clientId = null
-  
-    await ClientApiService.postClient(clientName.value, clientEntityType.value, clientYearEnd.value, clientStatus.value)
+    const { filingYear, yearEnd } = ev.target
+    console.log('create filing year', filingYear.value, yearEnd.value)
+    EngagementApiService.postFilingYear(this.props.clientId, filingYear.value, yearEnd.value)
       .then(res => {
-        clientId = res.clientId
-        this.context.handleSetCreateClient(false)
-      })
-      .catch(res => {
-        this.setState({ error: res.error })
-      })
-    await EntityApiService.postEntity(clientId, clientName.value, clientEIN.value, true, clientEntityType.value, true)
-      .then(res => {
-        clientName.value = ''
-        clientEIN.value = ''
-        clientYearEnd.value = ''
-      })
-      .catch(res => {
-        this.setState({ error: res.error })
+        this.context.handleSetCreateFilingYear(false)
       })
   }
-
-
 
   renderFilingYears = () => {
     return this.state.filingYears.map((filingYear) => {
@@ -69,42 +52,41 @@ export default class CreateFilingYearForm extends Component {
 
   render() {
     return (
-      <form className='createClientForm' onSubmit={this.handleSubmitForm}>
+      <form className='createFilingYearForm' onSubmit={this.handleSubmitForm}>
         <h2>Add A New Filing Year</h2>
-        <div className='createClientFromBody'>
+        <div className='createFilingYearFromBody'>
           <div>
             <h3>Filing Years Added:</h3>
             {this.renderFilingYears()}
           </div>
-          <label className='createClientLabel' htmlFor='clientStatus'>Please select the new filing year you wish to add</label>
-          <select className='createClientSelect' id='clientStatus' name={'clientStatus'}>
-            <option className='createClientOption' value={'2022'}>2022</option>
-            <option className='createClientOption' value={'2021'}>2021</option>
-            <option className='createClientOption' value={'2020'}>2020</option>
-            <option className='createClientOption' value={'2019'}>2019</option>
-            <option className='createClientOption' value={'2018'}>2018</option>
-            <option className='createClientOption' value={'2017'}>2017</option>
-            <option className='createClientOption' value={'2016'}>2016</option>
-            <option className='createClientOption' value={'2015'}>2015</option>
-            <option className='createClientOption' value={'2014'}>2014</option>
-            <option className='createClientOption' value={'2013'}>2013</option>
-            <option className='createClientOption' value={'2012'}>2012</option>
-            <option className='createClientOption' value={'2011'}>2011</option>
-            <option className='createClientOption' value={'2010'}>2010</option>
+          <label className='createFilingYearLabel' htmlFor='filingYear'>Please select the new filing year you wish to add</label>
+          <select className='createFilingYearSelect' id='filingYear' name={'filingYear'}>
+            <option className='createFilingYearOption' value={'2022'}>2022</option>
+            <option className='createFilingYearOption' value={'2021'}>2021</option>
+            <option className='createFilingYearOption' value={'2020'}>2020</option>
+            <option className='createFilingYearOption' value={'2019'}>2019</option>
+            <option className='createFilingYearOption' value={'2018'}>2018</option>
+            <option className='createFilingYearOption' value={'2017'}>2017</option>
+            <option className='createFilingYearOption' value={'2016'}>2016</option>
+            <option className='createFilingYearOption' value={'2015'}>2015</option>
+            <option className='createFilingYearOption' value={'2014'}>2014</option>
+            <option className='createFilingYearOption' value={'2013'}>2013</option>
+            <option className='createFilingYearOption' value={'2012'}>2012</option>
+            <option className='createFilingYearOption' value={'2011'}>2011</option>
+            <option className='createFilingYearOption' value={'2010'}>2010</option>
           </select> 
           <FormInput 
-            id={'clienEIN'}
-            name={'clientEIN'}
+            id={'yearEnd'}
+            name={'yearEnd'}
             label={`Please enter the year end for the selected filing year`}
-            inputClassName={'createClientInputEIN'}
+            inputClassName={'createYearEnd'}
             maxLength={10}
-            pattern={'[0-9]{2}+[-]{1}+[0-9]{2}'}
           /> 
         </div>
         {this.state.error && <div className='errorMessage'>{this.state.error}</div>}
-        <div className='createClientFormButtons'>
-          <PseudoButton type={'submit'} className={'createClientFormButton'} name={'Create'} />
-          <PseudoButton handleOnClick={() => this.context.handleSetCreateClient(false)} className={'cancelClientFormButton'} name={'Cancel'} />
+        <div className='createFilingYearFormButtons'>
+          <PseudoButton type={'submit'} className={'createFilingYearFormButton'} name={'Create'} />
+          <PseudoButton handleOnClick={() => this.context.handleSetCreateFilingYear(false)} className={'cancelFilingYearFormButton'} name={'Cancel'} />
         </div>
       </form>
     )

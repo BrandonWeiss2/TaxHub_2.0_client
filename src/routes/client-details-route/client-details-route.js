@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import ClientApiService from '../../services/client-api-service'
+import EngagementApiService from '../../services/engagement-api-service'
 import ClientsDetailsBodyHeader from '../../components/body-headers/clients-details-body-header/clients-details-body-header'
 import GeneralInformation from '../../components/general-information/general-information';
 import ActiveEngagements from '../../components/active-engagements/active-engagements';
@@ -82,7 +83,7 @@ export default class ClientDetailsRoute extends Component {
             <div className='clientsDetailsBodyWrapper'>
               <div className='clientsDetailsBody'>
                 <GeneralInformation client={this.state.currentClient} updateEditInfo={this.handleUpdateEditInfo} editInfo={this.state.editInfo} clientId={this.props.match.params.id} updateCurrentClient={this.updateCurrentClient}/>
-                <ActiveEngagements />
+                {/* <ActiveEngagements /> */}
               </div>
             </div>
           </div> 
