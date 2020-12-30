@@ -6,11 +6,17 @@ import Registration from './routes/registration-route/registration-route';
 import Clients from './routes/clients-route/clients-route';
 import ClientDetails from './routes/client-details-route/client-details-route';
 import EngagementsRoute from './routes/engagements-route/engagementes-route';
+import Landing from './routes/langing-route/landing-route';
 
 export default class App extends Component {
   render () {
     return (
       <Switch>
+        <Route
+          exact
+          path='/'
+          component={Landing}
+        />
         <Route
           exact
           path='/login'
