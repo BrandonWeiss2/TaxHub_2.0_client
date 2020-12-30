@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Logo from '../components/images/logo-notext.png'
+import Logo from '../components/images/logo.png'
 import './landing-route.css'
 
 export default class LandingRoute extends Component {
