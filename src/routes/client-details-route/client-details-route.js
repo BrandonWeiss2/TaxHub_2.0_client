@@ -84,7 +84,7 @@ export default class ClientDetailsRoute extends Component {
             <div className='clientsDetailsBodyWrapper'>
               <div className='clientsDetailsBody'>
                 <GeneralInformation client={this.state.currentClient} updateEditInfo={this.handleUpdateEditInfo} editInfo={this.state.editInfo} clientId={this.props.match.params.id} updateCurrentClient={this.updateCurrentClient}/>
-                <ActiveEngagements />
+                <ActiveEngagements clientId={this.props.match.params.id}/>
               </div>
             </div>
           </div> 

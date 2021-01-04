@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import EngagementApiService from '../../services/engagement-api-service'
 import Button from '../button/button'
 import './active-engagements.css'
 
@@ -16,6 +17,10 @@ export default class ActiveEngagements extends Component {
         formsFinalized: 6,
       },
     ]
+  }
+
+  componentDidMount () {
+    EngagementApiService.getActiveEngagements(clientId)
   }
   
   renderActiveEngagements = () => {
