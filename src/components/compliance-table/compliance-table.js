@@ -26,10 +26,49 @@ export default class ComplianceTable extends Component {
     editForm: false,
     entityForms: [],
     cancelEdits: false,
+    totalFomrs: 0,
+    formsFinalized: 0,
   }
 
   componentDidMount = () => {
+    EngagementApiService.getFormsByEngagementAndEntity(this.props.clientId, this.props.engagementId, this.props.entityId, this.props.engagementType)
+    .then(res => { 
+      let totalForms = res.length
+      let formsFinalized = 0
+      for (let i = 0; i < totalForms; i++) {
+        if(res[i].completionStatus === 'FINAL') {
+          formsFinalized++
+        }
+      }
+      this.setState({ 
+        entityForms: res,
+        entities: res.entities,
+        formsFinalized: formsFinalized,
+        totalForms: totalForms,
+      })
+    })
     this.setState({ entityForms: this.props.entityForms })
+  }
+
+  rerenderComplianceTable = () => {
+    EngagementApiService.getFormsByEngagementAndEntity(this.props.clientId, this.props.engagementId, this.props.entityId, this.props.engagementType)
+    .then(res => { 
+      let totalForms = res.length
+      let formsFinalized = 0
+      for (let i = 0; i < totalForms; i++) {
+        if(res[i].completionStatus === 'FINAL') {
+          formsFinalized++
+        }
+      }
+      this.setState({ 
+        entityForms: res,
+        entities: res.entities,
+        formsFinalized: formsFinalized,
+        totalForms: totalForms,
+      })
+    })
+    this.setState({ entityForms: this.props.entityForms })
+    this.props.rerenderEngagementCard()
   }
 
   renderTableColumnHeaders = () => {
@@ -69,20 +108,21 @@ export default class ComplianceTable extends Component {
   }
 
   renderTableRows = () => {
+    if(this.state.entityForms === undefined) {
+      return
+    }  
     return this.state.entityForms.map((form, index) => {
       if(this.props.engagementType === 'extensions' && form !== undefined) {
         return (
           <TableRowExtension
             key={index}
             index={index}
-            extension={form}
+            extensionId={form.extensionId}
             editForm={this.state.editForm}
             cancelEdits={this.state.cancelEdits}
-            engagementId={this.props.engagmentId}
-            entityId={this.props.entityId}
             closeEditForm={this.handleCloseEditForm}
-            rerenderEngagements={this.props.rerenderEngagements}
             clickFormDeleteButton={this.handleClickFormDeleteButton}
+            rerenderComplianceTable={this.rerenderComplianceTable}
           />
         )
       } else if (this.props.engagementType === 'tax_returns' && form !== undefined) {
@@ -90,14 +130,12 @@ export default class ComplianceTable extends Component {
           <TableRowTaxReturn
             key={index}
             index={index}
-            taxReturn={form}
+            taxReturnId={form.taxReturnId}
             editForm={this.state.editForm}
             cancelEdits={this.state.cancelEdits}
-            engagementId={this.props.engagmentId}
-            entityId={this.props.entityId}
             closeEditForm={this.handleCloseEditForm}
-            rerenderEngagements={this.props.rerenderEngagements}
             clickFormDeleteButton={this.handleClickFormDeleteButton}
+            rerenderComplianceTable={this.rerenderComplianceTable}
           />
         )
       }
@@ -191,10 +229,8 @@ export default class ComplianceTable extends Component {
     this.setState({ error: null })
     const { jurisdiction, formName, dueDate, extended, extendedDueDate, status } = event.target
     if(this.props.engagementType === 'extensions') {
-      console.log(this.props.engagementId, status.value)
       await EngagementApiService.postEngagementExtension(jurisdiction.value, formName.value, dueDate.value, status.value, this.props.engagementId, this.props.entityId)
         .then(res => {
-          console.log('res', res)
           formName.value = ''
           dueDate.value = ''
           this.handleSetStateAddForm(false)
@@ -206,7 +242,7 @@ export default class ComplianceTable extends Component {
     } else if(this.props.engagementType === 'tax_returns') {
       await EngagementApiService.postEngagementTaxReturn(jurisdiction.value, formName.value, dueDate.value, extended.value, extendedDueDate.value, status.value, this.props.engagementId, this.props.entityId)
       .then(res => {
-        console.log('res', res)
+
         formName.value = ''
         dueDate.value = ''
         this.handleSetStateAddForm(false)
@@ -216,7 +252,7 @@ export default class ComplianceTable extends Component {
         })
       })
     }
-    await this.props.rerenderEngagements()
+    this.props.rerenderEngagementCard()
   }
 
   handleClickCross = () => {
@@ -225,7 +261,6 @@ export default class ComplianceTable extends Component {
     this.handleSetStateEditForm(false)
     this.handleSetStateComplianceEditTools('hidden')
     this.setState({cancelEdits: !this.state.cancelEdits})
-    this.props.rerenderEngagements()
   }
 
   handleClickFormDeleteButton = async (formId, index) => {
@@ -248,7 +283,7 @@ export default class ComplianceTable extends Component {
           })
         })
     }
-    await this.props.rerenderEngagements()
+    this.rerenderComplianceTable()
   }
 
   renderComplianceEditTools = () => {
@@ -271,7 +306,7 @@ export default class ComplianceTable extends Component {
             {this.renderArrowButtons()}
           </div>
           <div className='complianceEditToolsContainer'>
-            <span>{this.props.formsFinalized} out of {this.props.totalForms} completed</span>
+            <span>{this.state.formsFinalized} out of {this.state.totalForms} completed</span>
             {this.state.complianceTableContainerClassName !== 'hidden' &&
             <>
             {this.renderComplianceEditTools()}

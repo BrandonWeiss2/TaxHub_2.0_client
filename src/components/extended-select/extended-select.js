@@ -1,17 +1,13 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component } from 'react'
 
 export default class ExtendedSelect extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      extended: false,
+      extended: this.props.extended,
     }
     this.onInputChange = this.onInputChange.bind(this)
-  }
-
-  componentDidMount = () => {
-    console.log('extended', this.props.extended)
-    this.setState({ extended: this.props.extended })
+    console.log(this.props.extended)
   }
 
   static defaultProps = {

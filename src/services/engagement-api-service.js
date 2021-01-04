@@ -15,8 +15,60 @@ const EngagementApiService = {
           : res.json()
       )
   },
+  getEngagementEntities(clientId, engagementId, engagementType) {
+    return fetch(`${config.API_ENDPOINT}/engagements/${clientId}/${engagementId}/entities/${engagementType}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
+  getExtensionById(extensionId) {
+    return fetch(`${config.API_ENDPOINT}/engagements/extensions/${extensionId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
+  getTaxReturnById(taxReturnId) {
+    return fetch(`${config.API_ENDPOINT}/engagements/taxReturns/${taxReturnId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
+  getFormsByEngagementAndEntity(clientId, engagementId, entityId, engagementType) {
+    return fetch(`${config.API_ENDPOINT}/engagements/${clientId}/${engagementId}/entities/${entityId}/engagementType/${engagementType}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
   postEngagement(clientId, filingYearId, engagementType) {
-    return fetch(`${config.API_ENDPOINT}/engagements/${clientId}`, {
+    return fetch(`${config.API_ENDPOINT}/engagements/${clientId}/engagement`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -211,6 +263,19 @@ const EngagementApiService = {
         filing_year: filingYear,
         year_end: yearEnd,
       })  
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(event => Promise.reject(event))  
+          : res.json()
+      )
+  },
+  getActiveEngagements(clientId) {
+    return fetch(`${config.API_ENDPOINT}/engagements/active/${clientId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
     })
       .then(res =>
         (!res.ok)

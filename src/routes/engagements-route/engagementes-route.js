@@ -14,7 +14,7 @@ export default class EngagementsRoute extends Component {
   static contextType = Context
 
   state = {
-    buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Compliance', route: `compliance/${this.props.match.params.id}`}],
+    buttons: [],
     currentClient: {},
     engagements: [], 
     createEngagment: null 
@@ -24,7 +24,8 @@ export default class EngagementsRoute extends Component {
     ClientApiService.getClientsByClientId(this.props.match.params.id)
       .then(res => {
         this.setState({
-          currentClient: res
+          currentClient: res,
+          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Compliance', route: `compliance/${this.props.match.params.id}`}],
         })
       })
     EngagementApiService.getEngagementsByClientId(this.props.match.params.id)
@@ -34,17 +35,7 @@ export default class EngagementsRoute extends Component {
       })
     })
   }
-
-  rerenderEngagements = () => {
-    EngagementApiService.getEngagementsByClientId(this.props.match.params.id)
-    .then(res => {
-      console.log('engagements did rerender', res)
-      this.setState({
-        engagements: res
-      })
-    })
-  }
-
+  
   renderEngagementCards = (status) => {
     return (
       this.state.engagements.map((engagement, index) => {
@@ -52,14 +43,11 @@ export default class EngagementsRoute extends Component {
         return (
           <EngagementCard 
             key={index}
+            clientId={this.props.match.params.id}
             engagementId={engagement.engagementId}
             filingYear={engagement.filingYear}
-            status={engagement.engagementStatus}
+            engagementStatus={engagement.engagementStatus}
             engagementType={engagement.engagementType}
-            formsFinalized={engagement.formsFinalized}
-            totalForms={engagement.totalForms}
-            entities={engagement.entities}
-            rerenderEngagements={this.rerenderEngagements}
           />
         )
       })

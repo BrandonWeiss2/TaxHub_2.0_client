@@ -12,13 +12,42 @@ export default class EngagementCard extends Component {
   state = {
     expanded: false,
     engagementBodyClassName: 'hidden',
-    engagementStatus: ''
+    engagementStatus: null,
+    entities: [],
+    formsFinalized: null,
+    totalForms: null,
+    engagementType: null,
+    engagementId: null,
   }
 
   componentDidMount () {
-    this.setState({ engagmentStatus: this.props.status })
+    EngagementApiService.getEngagementEntities(this.props.clientId, this.props.engagementId, this.props.engagementType)
+      .then(res => { 
+        this.setState({ 
+          engagementStatus: this.props.engagementStatus,
+          entities: res.entities,
+          formsFinalized: res.formsFinalized[0].count,
+          totalForms: res.totalForms[0].count,
+          engagementType: this.props.engagementType,
+          engagementId: this.props.engagementId
+        })
+      })
   }
-s
+
+  rerenderEngagementCard = () => {
+    EngagementApiService.getEngagementEntities(this.props.clientId, this.props.engagementId, this.props.engagementType)
+    .then(res => { 
+      this.setState({ 
+        engagementStatus: this.props.engagementStatus,
+        entities: res.entities,
+        formsFinalized: res.formsFinalized[0].count,
+        totalForms: res.totalForms[0].count,
+        engagementType: this.props.engagementType,
+        engagementId: this.props.engagementId
+      })
+    })
+  }
+
   handleClickVisit = () => {
     this.props.history.push(`/entities/${this.props.clientId}`)
   }
@@ -52,9 +81,11 @@ s
         <span className='statusInactiveEngagement'>Completed</span>
       )
     } else {
-      console.log(this.props.entities, this.props.formsFinalized, this.props.totalForms)
-      let completionStatus = Math.floor(this.props.formsFinalized/this.props.totalForms * 100)
+      let completionStatus = Math.floor(this.state.formsFinalized/this.state.totalForms * 100)
       let completionStatusStyle = {borderColor: 'rgba(255, 0, 0, 0.5)', color: 'rgba(255, 0, 0, 0.5)'}
+      if (!completionStatus) {
+        completionStatus = 0
+      }
       if(completionStatus > 32 && completionStatus < 66) {
         completionStatusStyle = {borderColor: 'rgba(255, 166, 0, 0.5)', color: 'rgba(255, 166, 0, 0.5)'}
       } else if(completionStatus >= 66) {
@@ -76,19 +107,16 @@ s
 
   renderEntities = () => {
     return (
-      this.props.entities.map((entity, index) => {
+      this.state.entities.map((entity, index) => {
+        console.log('entities', entity)
         return(
           <ComplianceTable 
             key={index}
-            engagementType={this.props.engagementType}
-            engagementId={this.props.engagementId}
-            entityId={entity.entityId}
-            entityForms={entity.entityForms}
-            totalForms={entity.totalForms}
-            entityName={entity.entityName}
-            formsFinalized={entity.formsFinalized}
-            totalForms={entity.totalForms}
-            rerenderEngagements={this.props.rerenderEngagements}
+            engagementType={this.state.engagementType}
+            engagementId={this.state.engagementId}
+            entityId={entity.entity_id}
+            entityName={entity.legal_name}
+            rerenderEngagementCard={this.rerenderEngagementCard}
           />
         )
       })
@@ -97,7 +125,6 @@ s
 
   handleMarkEngagementAsFinal = async (status) => {
     await EngagementApiService.patchEngagementStatus(this.props.engagmentId, status)
-      await this.props.rerenderEngagements()
       await this.setState({ engagementStatus: status })
   }
 
@@ -119,7 +146,7 @@ s
         <div className={this.state.engagementBodyClassName}>
           {this.renderEntities()}
           <div className='engagementCompleteButtonContainer'>
-            {precentCompleted === 1 && this.state.engagementStatus !== 'FINAL' &&
+            {precentCompleted === 1 && this.props.status !== 'FINAL' &&
             <Button handleOnClick={() => this.handleMarkEngagementAsFinal('FINAL')} className='engagementCompleteButton' name='Mark Engagement as Completed'/>
             }
           </div>

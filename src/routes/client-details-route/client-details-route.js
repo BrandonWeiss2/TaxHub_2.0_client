@@ -13,7 +13,7 @@ export default class ClientDetailsRoute extends Component {
   static contextType = Context
   
   state = {
-    buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Compliance', route: `compliance/${this.props.match.params.id}`}],
+    buttons: [],
     currentClient: {
       clientId: '',
       clientName: '',
@@ -33,7 +33,8 @@ export default class ClientDetailsRoute extends Component {
     ClientApiService.getClientsByClientId(this.props.match.params.id)
       .then(res => {
         this.setState({
-          currentClient: res
+          currentClient: res,
+          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Compliance', route: `compliance/${this.props.match.params.id}`}]
         })
       })
   }
@@ -83,7 +84,7 @@ export default class ClientDetailsRoute extends Component {
             <div className='clientsDetailsBodyWrapper'>
               <div className='clientsDetailsBody'>
                 <GeneralInformation client={this.state.currentClient} updateEditInfo={this.handleUpdateEditInfo} editInfo={this.state.editInfo} clientId={this.props.match.params.id} updateCurrentClient={this.updateCurrentClient}/>
-                {/* <ActiveEngagements /> */}
+                <ActiveEngagements />
               </div>
             </div>
           </div> 

@@ -14,30 +14,39 @@ export default function TableRowTaxReturn(props) {
   const [dueDate, setDueDate] = useState()
   const [extendedDueDate, setExtendedDueDate] = useState()
   const [completionStatus, setCompletionStatus] = useState()
+  const [extendedValue, setExtendedValue] = useState()
 
   useEffect(() => {
-    let extendedValue = 'Yes'
-    if(!props.taxReturn.extended) {
-      extendedValue = 'No'
-    }
-    setBaseState(props.taxReturn.jurisdictionId, props.taxReturn.formName, extendedValue, props.taxReturn.dueDate.slice(0,10), props.taxReturn.extendedDueDate.slice(0,10), props.taxReturn.completionStatus)
+    EngagementApiService.getTaxReturnById(props.taxReturnId)
+      .then(res => {
+        let extended = 'Yes'
+        if(!res.extended) {
+          extended = 'No'
+        }
+        setBaseState(res.jurisdiction_id, res.form_name, extended, res.due_date.slice(0,10), res.extended_due_date.slice(0,10), res.completion_status, res.extended)
+      })
   }, [])
 
+
   useEffect(() => {
-    let extendedValue = 'Yes'
-    if(!props.taxReturn.extended) {
-      extendedValue = 'No'
-    }
-    setBaseState(props.taxReturn.jurisdictionId, props.taxReturn.formName, extendedValue, props.taxReturn.dueDate.slice(0,10), props.taxReturn.extendedDueDate.slice(0,10), props.taxReturn.completionStatus)
+    EngagementApiService.getTaxReturnById(props.taxReturnId)
+      .then(res => {
+        let extendedValue = 'Yes'
+        if(!res.extended) {
+          extendedValue = 'No'
+        }
+        setBaseState(res.jurisdiction_id, res.form_name, extendedValue, res.due_date.slice(0,10), res.extended_due_date.slice(0,10), res.completion_status, res.extended)
+      })
   }, [props.editForm])
 
-  function setBaseState(jurisdictionId, formName, extended, dueDate, extendedDueDate, completionStatus) {
+  function setBaseState(jurisdictionId, formName, extended, dueDate, extendedDueDate, completionStatus, extendedValue) {
     setJurisdictionId(jurisdictionId)
     setFormName(formName)
     setExtended(extended)
     setDueDate(dueDate)
     setExtendedDueDate(extendedDueDate)
     setCompletionStatus(completionStatus)
+    setExtendedValue(extendedValue)
   }
 
   function onInputFormNameChange (event) {
@@ -56,7 +65,6 @@ export default function TableRowTaxReturn(props) {
     setExtended(extended)
   }
 
-
   function onInputCompletionStatusChange (completionStatus) {
     setCompletionStatus(completionStatus)
   }
@@ -67,7 +75,7 @@ export default function TableRowTaxReturn(props) {
 
   function handleSubmitEditForm (event) {
     event.preventDefault()
-    EngagementApiService.patchEngagementTaxReturn(jurisdictionId, formName, extended, dueDate, extendedDueDate, completionStatus, props.taxReturn.taxReturnId)
+    EngagementApiService.patchEngagementTaxReturn(jurisdictionId, formName, extended, dueDate, extendedDueDate, completionStatus, props.taxReturnId)
       .then(res => {
         props.closeEditForm()
         let extendedValue = 'Yes'
@@ -75,7 +83,7 @@ export default function TableRowTaxReturn(props) {
           extendedValue = 'No'
         }
         setBaseState(res.jurisdictionId, res.formName, extendedValue, res.dueDate.slice(0,10), res.extendedDueDate.slice(0,10), res.completionStatus)
-        props.rerenderEngagements()
+        props.rerenderComplianceTable()
       })
   }
 
@@ -90,7 +98,7 @@ export default function TableRowTaxReturn(props) {
           <div className='item2'>{extendedDueDate}</div>
           <div className='item2'>{completionStatus}</div>
           <div className='item1'>
-          <button onClick={() => props.clickFormDeleteButton(props.taxReturn.taxReturnId, props.index)} className='complianceTrashButton'>
+          <button onClick={() => props.clickFormDeleteButton(props.taxReturnId, props.index)} className='complianceTrashButton'>
               <FontAwesomeIcon icon={faTrashAlt} className='complianceTrashIcon'/>
             </button>
           </div>
@@ -98,15 +106,15 @@ export default function TableRowTaxReturn(props) {
       ) 
     } else if(props.editForm) {
       return (
-        <form onSubmit={handleSubmitEditForm} id={`editFormForm${props.taxReturn.taxReturnId}`} className='complianceTableRow'>
+        <form onSubmit={handleSubmitEditForm} id={`editFormForm${props.taxReturnId}`} className='complianceTableRow'>
           <div className='formItemLead'><JursisdictionSelect jurisdictionId={jurisdictionId} onInputJursidictionIdChange={onInputJursidictionIdChange} name='jurisdiction' id='editFormJurisdiction' className='editFormSelect' /></div>
           <div className='formItem'><input type='text' value={formName} onChange={onInputFormNameChange} name='formName' id='editFormFormName' className='editFormInput'></input></div>
-          <div className='formItem'><ExtendedSelect extended={props.taxReturn.extended} onInputExtendedChange={onInputExtendedChange} name='extended' id='editFormExtended' className='editFormSelect' /></div>
+          <div className='formItem'><ExtendedSelect extended={extendedValue} onInputExtendedChange={onInputExtendedChange} name='extended' id='editFormExtended' className='editFormSelect' /></div>
           <div className='formItem'><input type='text' value={dueDate.slice(0,10)} onChange={onInputDueDateChange} name='dueDate' id='editFormDueDate' className='editFormInput'></input></div>
           <div className='formItem'><input type='text' value={extendedDueDate.slice(0,10)} onChange={onInputExtendedDueDateChange} name='extendedDueDate' id='editFormExtendedDueDate' className='editFormInput'></input></div>
           <div className='formItem'><StatusSelect completionStatus={completionStatus} onInputCompletionStatusChange={onInputCompletionStatusChange} name='status' id='editFormStatus' className='editFormSelect' /></div>
           <div className='formItemButton'>
-            <button type='submit' form={`editFormForm${props.taxReturn.taxReturnId}`} className='complianceSubmitEditButton'>
+            <button type='submit' form={`editFormForm${props.taxReturnId}`} className='complianceSubmitEditButton'>
               <FontAwesomeIcon icon={faCheck} className='complianceSubmitEditIcon'/>
             </button>
           </div>

@@ -13,11 +13,17 @@ export default function TableRowExtension(props) {
   const [completionStatus, setCompletionStatus] = useState()
 
   useEffect(() => {
-    setBaseState(props.extension.jurisdictionId, props.extension.formName, props.extension.dueDate.slice(0,10), props.extension.completionStatus)
+    EngagementApiService.getExtensionById(props.extensionId)
+      .then(res => {
+        setBaseState(res.jurisdiction_id, res.form_name, res.due_date.slice(0,10), res.completion_status)
+      })
   }, [])
 
   useEffect(() => {
-    setBaseState(props.extension.jurisdictionId, props.extension.formName, props.extension.dueDate.slice(0,10), props.extension.completionStatus)
+    EngagementApiService.getExtensionById(props.extensionId)
+      .then(res => {
+        setBaseState(res.jurisdiction_id, res.form_name, res.due_date.slice(0,10), res.completion_status)
+      })
   }, [props.editForm])
 
   function setBaseState(jurisdictionId, formName, dueDate, completionStatus) {
@@ -45,11 +51,11 @@ export default function TableRowExtension(props) {
 
   function handleSubmitEditForm (event) {
     event.preventDefault()
-    EngagementApiService.patchEngagementExtension(jurisdictionId, formName, dueDate, completionStatus, props.extension.extensionId)
+    EngagementApiService.patchEngagementExtension(jurisdictionId, formName, dueDate, completionStatus, props.extensionId)
       .then(res => {
         props.closeEditForm()
         setBaseState(res.jurisdictionId, res.formName, res.dueDate.slice(0,10), res.completionStatus)
-        props.rerenderEngagements()
+        props.rerenderComplianceTable()
       })
   }
 
@@ -62,7 +68,7 @@ export default function TableRowExtension(props) {
           <div className='item2'>{dueDate}</div>
           <div className='item2'>{completionStatus}</div>
           <div className='item1'>
-            <button onClick={() => props.clickFormDeleteButton(props.extension.extensionId, props.index)} className='complianceTrashButton'>
+            <button onClick={() => props.clickFormDeleteButton(props.extensionId, props.index)} className='complianceTrashButton'>
               <FontAwesomeIcon icon={faTrashAlt} className='complianceTrashIcon'/>
             </button>
           </div>
@@ -70,13 +76,13 @@ export default function TableRowExtension(props) {
       ) 
     } else if(props.editForm) {
       return (
-        <form onSubmit={handleSubmitEditForm} id={`editFormForm${props.extension.extensionId}`} className='complianceTableRow'>
+        <form onSubmit={handleSubmitEditForm} id={`editFormForm${props.extensionId}`} className='complianceTableRow'>
           <div className='formItemLead'><JursisdictionSelect jurisdictionId={jurisdictionId} onInputJursidictionIdChange={onInputJursidictionIdChange} name='jurisdiction' id='editFormJurisdiction' className='editFormSelect' /></div>
           <div className='formItem'><input type='text' value={formName} onChange={onInputFormNameChange} name='formName' id='editFormFormName' className='editFormInput'></input></div>
           <div className='formItem'><input type='text' value={dueDate} onChange={onInputDueDateChange} name='dueDate' id='editFormDueDate' className='editFormInput'></input></div>
           <div className='formItem'><StatusSelect completionStatus={completionStatus} onInputCompletionStatusChange={onInputCompletionStatusChange} name='status' id='editFormStatus' className='editFormSelect' /></div>
           <div className='formItemButton'>
-            <button type='submit' form={`editFormForm${props.extension.extensionId}`} className='complianceSubmitEditButton'>
+            <button type='submit' form={`editFormForm${props.extensionId}`} className='complianceSubmitEditButton'>
               <FontAwesomeIcon icon={faCheck} className='complianceSubmitEditIcon'/>
             </button>
           </div>
