@@ -4,7 +4,7 @@ import './nav.css'
 
 export default class Nav extends Component {
   static defaultProps = {
-    buttons: [{name: 'Dashboard', route: 'dashboard'}, {name: 'Clients', route: 'clients'}, {name: 'Search', route: 'search'}, {name: 'Reminders', route: 'reminders'}]
+    buttons: [{name: 'Dashboard', route: 'dashboard'}, {name: 'Clients', route: 'clients'}] //, {name: 'Search', route: 'search'}, {name: 'Reminders', route: 'reminders'}
   }
   
   // renderNavButtons will take in one of the nested arrays from the nav-buttons-array as a prop from the route calling the Nav component

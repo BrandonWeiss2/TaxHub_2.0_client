@@ -34,7 +34,7 @@ export default class ClientDetailsRoute extends Component {
       .then(res => {
         this.setState({
           currentClient: res,
-          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Compliance', route: `compliance/${this.props.match.params.id}`}]
+          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Settings', route: `settings/${this.props.match.params.id}`}]
         })
       })
   }
@@ -84,7 +84,7 @@ export default class ClientDetailsRoute extends Component {
             <div className='clientsDetailsBodyWrapper'>
               <div className='clientsDetailsBody'>
                 <GeneralInformation client={this.state.currentClient} updateEditInfo={this.handleUpdateEditInfo} editInfo={this.state.editInfo} clientId={this.props.match.params.id} updateCurrentClient={this.updateCurrentClient}/>
-                <ActiveEngagements clientId={this.props.match.params.id}/>
+                {/* <ActiveEngagements clientId={this.props.match.params.id}/> */}
               </div>
             </div>
           </div> 

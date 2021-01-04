@@ -26,7 +26,7 @@ export default class ClientsBodyHeader extends Component {
         {!this.context.createClient &&
         <div className='bodyHeaderFunctionContainer'>
           <div className='bodyHeaderSearchBarWrapper'>
-            <SearchBar label={'Search by Client name:'} />
+            {/* <SearchBar label={'Search by Client name:'} /> */}
           </div>
           <div className='bodyHeaderButtonContainer'>
             <div className='bodyHeaderButtonWrapper'> 

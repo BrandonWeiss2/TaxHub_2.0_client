@@ -62,7 +62,7 @@ export default class DashboardRoute extends Component {
                   {this.renderClientCards(this.state.clientList)}
                 </div>
                 <div className='dashboardDueSoon'>
-                  <span>Forms Due Soon:</span>
+                  {/* <span>Forms Due Soon:</span> */}
                 </div>
               </div>
             </div>

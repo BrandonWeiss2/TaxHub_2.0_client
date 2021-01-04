@@ -20,7 +20,7 @@ export default class ActiveEngagements extends Component {
   }
 
   componentDidMount () {
-    EngagementApiService.getActiveEngagements(clientId)
+    EngagementApiService.getActiveEngagements(this.props.clientId)
   }
   
   renderActiveEngagements = () => {

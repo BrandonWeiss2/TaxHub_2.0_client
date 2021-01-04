@@ -4,13 +4,13 @@ import Nav from '../../components/nav/nav';
 import Context from '../../context/taxhub-context';
 import ClientApiService from '../../services/client-api-service';
 import EngagementApiService from '../../services/engagement-api-service';
-import EngagementsBodyHeader from '../../components/body-headers/engagements-body-header/engagements-body-header';
 import EngagementCard from '../../components/engagement-card/engagement-card';
 import CreateEngagementForm from '../../components/create-engagement-form/create-engagement-form';
 import CreateFilingYearForm from '../../components/create-filing-year-form/create-filing-year-form'
-import './engagements-route.css';
+import './entities-route.css';
+import EntitiesBodyHeader from '../../components/body-headers/entities-body-header/entities-body-header';
 
-export default class EngagementsRoute extends Component {
+export default class EntitiesRoute extends Component {
   static contextType = Context
 
   state = {
@@ -25,7 +25,7 @@ export default class EngagementsRoute extends Component {
       .then(res => {
         this.setState({
           currentClient: res,
-          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Compliance', route: `compliance/${this.props.match.params.id}`}],
+          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Settings', route: `settings/${this.props.match.params.id}`}],
         })
       })
     EngagementApiService.getEngagementsByClientId(this.props.match.params.id)
@@ -71,13 +71,13 @@ export default class EngagementsRoute extends Component {
               buttons={this.state.buttons}
             />
           </nav>
-          <div className='engagementsBodyHeaderContainer'>
+          <div className='entitiesBodyHeaderContainer'>
             <br/>
-            <div className='engagementsBodyHeaderWrapper'>
-              <div className='engagementsBodyHeader'>
-                <EngagementsBodyHeader
-                  title={'Engagements'}
-                  description={`View all of ${this.state.currentClient.clientName}'s engagements `}
+            <div className='entitiesBodyHeaderWrapper'>
+              <div className='entitiesBodyHeader'>
+                <EntitiesBodyHeader
+                  title={'Entities'}
+                  description={`View all of ${this.state.currentClient.clientName}'s entities by filing year `}
                 />
               </div>
             </div>
