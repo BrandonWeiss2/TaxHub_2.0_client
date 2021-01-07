@@ -18,8 +18,8 @@ export default class EngagementsBodyHeader extends Component {
           </div>
           {!this.context.createEngagment && !this.context.createFilingYear &&
           <div className='bodyHeaderButtonContainerEngagements'> 
-              <Button className='createEngagementButton' handleOnClick={() => this.context.handleSetCreateEngagement(true)} name={'New_Engagement'} />
-              <Button className='createFilingYearButton' handleOnClick={() => this.context.handleSetCreateFilingYear(true)} name={'New_Filing_Year'} />
+              <Button className='createEngagementButton' handleOnClick={() => this.context.handleSetCreateEngagement(true)} name={'New Engagement'} />
+              <Button className='createFilingYearButton' handleOnClick={() => this.context.handleSetCreateFilingYear(true)} name={'New Filing Year'} />
           </div>
           }
         </div>

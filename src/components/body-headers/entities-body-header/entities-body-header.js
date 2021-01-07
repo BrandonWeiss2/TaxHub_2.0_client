@@ -13,6 +13,15 @@ export default class EntitiesBodyHeader extends Component {
           <h1 className='bodyHeaderTitle'>{this.props.title}</h1>
           <span className='bodyHeaderDescription'>{this.props.description}</span>
         </div>
+        <div className='bodyHeaderFunctionContainer'>
+          <div>
+          </div>
+          {!this.context.createEntity &&
+          <div className='bodyHeaderButtonContainerEntity'> 
+              <Button className='createEntityButton' handleOnClick={() => this.context.handleSetCreateNewEntity(true)} name={'New Entity'} /> 
+          </div>
+          }
+        </div>
       </div>
     )
   }

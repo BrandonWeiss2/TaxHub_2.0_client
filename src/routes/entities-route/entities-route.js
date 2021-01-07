@@ -3,12 +3,11 @@ import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import Context from '../../context/taxhub-context';
 import ClientApiService from '../../services/client-api-service';
-import EngagementApiService from '../../services/engagement-api-service';
-import EngagementCard from '../../components/engagement-card/engagement-card';
-import CreateEngagementForm from '../../components/create-engagement-form/create-engagement-form';
-import CreateFilingYearForm from '../../components/create-filing-year-form/create-filing-year-form'
-import './entities-route.css';
 import EntitiesBodyHeader from '../../components/body-headers/entities-body-header/entities-body-header';
+import EntityApiService from '../../services/entity-api-service';
+import CreateEntityForm from '../../components/create-entity-form/create-entity-form';
+import './entities-route.css';
+
 
 export default class EntitiesRoute extends Component {
   static contextType = Context
@@ -16,42 +15,96 @@ export default class EntitiesRoute extends Component {
   state = {
     buttons: [],
     currentClient: {},
-    engagements: [], 
-    createEngagment: null 
+    entities: [],
   }
 
-  componentDidMount () {
-    ClientApiService.getClientsByClientId(this.props.match.params.id)
+  async componentDidMount () {
+    await ClientApiService.getClientsByClientId(this.props.match.params.id)
       .then(res => {
         this.setState({
           currentClient: res,
-          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}, {name: 'Settings', route: `settings/${this.props.match.params.id}`}],
+          buttons: [{name: 'Overview', route: `overview/${this.props.match.params.id}`}, {name: 'Engagements', route: `engagements/${this.props.match.params.id}`}, {name: 'Entities', route: `entities/${this.props.match.params.id}`}], // {name: 'Settings', route: `settings/${this.props.match.params.id}`}
         })
       })
-    EngagementApiService.getEngagementsByClientId(this.props.match.params.id)
-    .then(res => {
-      this.setState({
-        engagements: res
+    await EntityApiService.getEntitiesByClientId(this.state.currentClient.clientId)
+      .then(res => {
+        console.log(res)
+        this.setState({
+          entities: res
+        })
       })
+  }
+
+  handleUpdateEntities = (newEntity) => {
+    let entities = this.state.entities
+    entities.push(newEntity)
+    this.setState({
+      entities: entities
     })
   }
   
-  renderEngagementCards = (status) => {
-    return (
-      this.state.engagements.map((engagement, index) => {
-        if(status === engagement.engagementStatus)
+  renderEntities = () => {
+    let activeEntities = this.state.entities.map((entity, index) => {
+      if(entity.active) {
         return (
-          <EngagementCard 
-            key={index}
-            clientId={this.props.match.params.id}
-            engagementId={engagement.engagementId}
-            filingYear={engagement.filingYear}
-            engagementStatus={engagement.engagementStatus}
-            engagementType={engagement.engagementType}
-          />
+          <div className='entity'>
+            <h3>{entity.entityName}</h3>
+            <p>Entity Type: {entity.entityType}</p>
+            <p>EIN: {entity.ein}</p>
+            <button className='entitiesStatusUpdateButton' onClick={() => this.handleClickUpdateEntitiesStatus(entity.entityId, false, index)}>Mark Inactive</button>
+          </div>
         )
-      })
+      }
+    })
+    let inactiveEntities = this.state.entities.map((entity, index) => {
+      console.log('entity', entity)
+      if(!entity.active) {
+        return (
+          <div className='entity'>
+            <h3>{entity.entityName}</h3>
+            <p>Entity Type: {entity.entityType}</p>
+            <p>EIN: {entity.ein}</p>
+            <div className='entitiesButtonContainer'>
+              <button className='entitiesStatusUpdateButton' onClick={() => this.handleClickUpdateEntitiesStatus(entity.entityId, true, index)}>Mark Active</button>
+              <button className='entitiesRemoveButton' onClick={() => this.handleClickRemoveEntity(entity.entityId)}>Remove</button>
+            </div>
+          </div>
+        )
+      }
+    })
+    return(
+      <div className='entitiesContainer'>
+        <div className='activeEntitiesWrapper'>
+          <h2>Active Entities:</h2>
+          {activeEntities}
+        </div>
+        <div className='inactiveEntitiesWrapper'>
+          <h2>Inactive Entities:</h2>
+          {inactiveEntities}
+        </div>
+    </div>
     )
+  }
+
+  handleClickRemoveEntity = (entityId) => {
+    EntityApiService.removeEntity(entityId)
+      .then(res => {
+        let entities = this.state.entities.filter(entity => entity.entityId !== entityId)
+        this.setState({
+          entities: entities
+        })
+      })
+  }
+
+  handleClickUpdateEntitiesStatus = (entityId, status, index) => {
+    EntityApiService.updateEntity(entityId, status)
+      .then(res => {
+        let entities = this.state.entities
+        entities[index] = res
+        this.setState({
+          entities: entities
+        })
+      })
   }
 
   render() {
@@ -82,31 +135,18 @@ export default class EntitiesRoute extends Component {
               </div>
             </div>
           </div>
-          <div className='engagementsBodyContainer'>
+          <div className='entitiesBodyContainer'>
             <br/>
-            <div className='engagementsBodyWrapper'>
-            {!this.context.createEngagment && !this.context.createFilingYear &&
-            <>
-              <div className='activeEngagements'>
-                <h2>Active Engagements</h2>
-                {this.renderEngagementCards('active')}
-              </div>
-              <div className='inactiveEngagements'>
-                <h2>Past Engagements</h2>
-                {this.renderEngagementCards('FINAL')}
-              </div>
-            </>
-            }
-            {this.context.createEngagment &&
-            <CreateEngagementForm 
-              clientId={this.props.match.params.id}
-            />
-            }
-            {this.context.createFilingYear &&
-            <CreateFilingYearForm 
-              clientId={this.props.match.params.id}
-            />
-            }
+            <div className='entitiesBodyWrapper'>
+              {!this.context.createEntity &&
+              this.renderEntities()
+              }
+              {this.context.createEntity &&
+              <CreateEntityForm 
+                clientId={this.state.currentClient.clientId}
+                updateEntities={this.handleUpdateEntities}
+              />
+              }
             </div>
           </div> 
         </div>

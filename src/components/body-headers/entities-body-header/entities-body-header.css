@@ -38,7 +38,7 @@
   width: 305px;
 }
 
-.createEngagementButton, .createFilingYearButton {
+.createEntityButton {
   display: block;
   font-size: 16px;
   color: #666666;
@@ -51,7 +51,7 @@
   background-color: transparent;
 }
 
-.createEngagementButton:hover, .createFilingYearButton:hover {
+.createEntityButton:hover {
   border-color: black;
   color: black;
 }

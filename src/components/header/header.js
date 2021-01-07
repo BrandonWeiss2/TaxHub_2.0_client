@@ -24,8 +24,8 @@ export default class Header extends Component {
         <div className='headerRightDiv'>
           <nav className='headerRightNav'>
             <ul className='headerNavUl'>
-              <li className='headerNavLi'><span>Docs</span></li>
-              <li className='headerNavLi'><span>About</span></li>
+              {/* <li className='headerNavLi'><span>Docs</span></li>
+              <li className='headerNavLi'><span>About</span></li> */}
               <li className='headerNavLiLogout' onClick={() => this.handleLogout()}><PseudoButton name={'Logout'}/></li>
             </ul>
           </nav>

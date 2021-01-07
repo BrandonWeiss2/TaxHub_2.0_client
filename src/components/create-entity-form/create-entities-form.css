@@ -1,0 +1,72 @@
+.createEntityForm {
+  margin: auto;
+}
+
+.createEntityFromHeader {
+  display: flex;
+}
+
+
+.createEntityLabel, .createEntitySelect {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.createEntityFormButton, .cancelEntityFormButton {
+  background-color: transparent;
+  display: inline-block;
+  font-size: 16px;
+  color: #666666;
+  padding: 3px 10px 3px 10px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s;
+  height: 24.6px;
+}
+
+.cancelEntityFormButton {
+  margin-left: 40px;
+}
+
+.createEntityFormButton:hover, .cancelEntityFormButton:hover {
+  border-color: black;
+  color: black;
+}
+
+.createEntityFormButtons {
+  display: flex;
+  margin-top: 30px;
+}
+
+.createEntitySelect {
+  border-radius: 4px;
+  height: 29.6px;
+  width: 120px;
+}
+
+.createEntityInput, .createEntityInputYearEnd, .createEntityInputEIN {
+  margin-bottom: 10px;
+  display: block;
+  padding-left: 6px;
+  width: 98%;
+  height: 1.6em;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease 0s, color 0.2s ease 0, width  0.2s ease 0s, color 0.2s ease 0s;
+  transition: border 0.2s ease 0s, color 0.2s ease 0s, width  0.2s ease 0s, color 0.2s ease 0s;
+  font-size: 16px;
+}
+
+.createEntityInputYearEnd, .createEntityInputEIN {
+  width: 87px;
+}
+
+.createEntityInput:focus{
+  padding-left: 6px;
+  outline: none;
+  height: 1.6em;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+}

@@ -9,6 +9,8 @@ const TaxHubContext = React.createContext({
   currentClientSelected: '',
   createEngagment: '',
   createFilingYear: '',
+  createEntity: '',
+  handleSetCreateNewEntity: () => {},
   handleSetCreateFilingYear: () => {},
   handleSetCreateEngagement: () => {},
   setCurrentClientSelected: () => {},
@@ -29,12 +31,17 @@ export class TaxHubProvider extends Component {
     currentClientSelected: '',
     createEngagment: '',
     createFilingYear: '',
+    createEntity: '',
   };
 
   static defaultProps = {
     history: {
       push: () => {}
     },
+  }
+
+  handleSetCreateNewEntity = (val) => {
+    this.setState({ createEntity: val })
   }
 
   handleSetCreateFilingYear = (val) => {
@@ -85,6 +92,8 @@ export class TaxHubProvider extends Component {
       currentClientSelected: this.state.currentClientSelected,
       createEngagment: this.state.createEngagment,
       createFilingYear: this.state.createFilingYear,
+      createEntity: this.state.createEntity,
+      handleSetCreateNewEntity: this.handleSetCreateNewEntity,
       handleSetCreateFilingYear: this.handleSetCreateFilingYear,
       handleSetCreateEngagement: this.handleSetCreateEngagement,
       setCurrentClientSelected: this.setCurrentClientSelected,
