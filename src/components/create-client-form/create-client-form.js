@@ -19,18 +19,18 @@ export default class CreateClientForm extends Component {
     let clientId = null
   
     await ClientApiService.postClient(clientName.value, clientEntityType.value, clientYearEnd.value, clientStatus.value)
-      .then(res => {
+      .then(async res => {
         clientId = res.clientId
-        this.context.handleSetCreateClient(false)
-      })
-      .catch(res => {
-        this.setState({ error: res.error })
-      })
-    await EntityApiService.postEntity(clientId, clientName.value, clientEIN.value, true, clientEntityType.value, true)
-      .then(res => {
-        clientName.value = ''
-        clientEIN.value = ''
-        clientYearEnd.value = ''
+        await this.context.handleSetCreateClient(false)
+        await EntityApiService.postEntity(clientId, clientName.value, clientEIN.value, true, clientEntityType.value, true)
+        .then(res => {
+          clientName.value = ''
+          clientEIN.value = ''
+          clientYearEnd.value = ''
+        })
+        .catch(res => {
+          this.setState({ error: res.error })
+        })
       })
       .catch(res => {
         this.setState({ error: res.error })
@@ -54,7 +54,6 @@ export default class CreateClientForm extends Component {
             label={`Please Enter The New Client's 9 digit EIN (XX-XXXXXXX):`}
             inputClassName={'createClientInputEIN'}
             maxLength={10}
-            pattern={'[0-9]{2}+[-]{1}+[0-9]{2}'}
           />
           <label className='createClientLabel' htmlFor='clientEntityType'>Please Select The New Client's Entity Type:</label>
           <select className='createClientSelect' id='clientEntityType' name={'clientEntityType'}>
@@ -67,10 +66,9 @@ export default class CreateClientForm extends Component {
           <FormInput 
             id={'clientYearEnd'}
             name={'clientYearEnd'}
-            label={`Please Enter The New Client's Year End (MM/YY):`}
+            label={`Please Enter The New Client's Year-End (YYYY-MM-DD):`}
             inputClassName={'createClientInputYearEnd'}
             maxLength={5}
-            pattern={'[0-1]{1}+[0-9]{1}+[/]{1}+[0-9]{2}'}
           />
           <label className='createClientLabel' htmlFor='clientStatus'>Please Select The New Client's Entity Type:</label>
           <select className='createClientSelect' id='clientStatus' name={'clientStatus'}>
