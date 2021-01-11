@@ -20,23 +20,32 @@ Unfortunatlely, the most common method deployed is an indiviual excel workbook, 
 
 TaxHub is here to resolve this issue by allowing a CPA to list all their clients, their clients' entities, and their respective returns due dates in a single location so a CPA do a quick check in seconds rather than an hour. Letting the CPA focus more on preforming work and stress less about the possibility of missing a due date!
 
-APP: Registration and Login Anyone is allowed to register for an account. The first widow you will be brought to is the login page. At the bottom there is a link the user can click to take them to the registration page.
+APP: Registration and Login 
 
 All fields are required and the password must meet specific requirements. Once the client recieves a valid response, the user will automatically be redirected to the login page where they will then enter their login information.
 
-APP: Main After loggin in, the user will be taken to the main page, which will be empty if the user has not created any clients. main page with no clients
+APP: Dashboard
 
-To get create your first client, click the plus icon in the top right corner. This will redirect you to the create client page. After the user enters info in the rquired fields, they will be brought back to the main screen where the client they just created will be dispalyed in the main table. The user is able to create as many clients as needed. Clicking the trash icon on the far right of the client table will delete that client. main page with clients Clicking anywhere else on a row with client data will take you to the entity page for that client.
+After logging in, the user will be taken to the main dashboard, which will display all the clients the user has created or added to their account.
 
-APP: Entity This page will look and operate identically to the main page. However, this time the user will be able to add as many entities as needed for the selected client by once again clicking on the plus icon in the top right corner. This will bring to the user to a create entity page that will look familiar, but with slightly different information fields. create entity page
+APP: Client
+
+To add clients or create a new one, click on the "Client" link located at the top of the screen. There will be a button to create a new client at near the top right side of the screen. You can also add any client that another user has created by searching through the table in the center of screen. 
+
+APP: Client Overview
+
+Each client will have its own overview page that can be accessed through the visit buttons on the dashboard or by clicking the eye icon in the client table. On the overview page, you will see basic client infromation, which can also be edited as needed. 
+
+APP: Engagements
+
+All the clients engagements will be displayed in expandable tables. Each table will contain every entity associated with that client. From there you can see all the froms that exist for that specific engagement. You can add, edit, and delete forms as neccessary. 
 
 For those unfamilar with coporate tax, the Parent entity in a corporate structure is any entity that controls another. For this purposes, the parent is the very top entity in the corporate structure. However, this can be different from the Top Con entity, which is the highest entity in a corporate structure that ultimately files the federal return. (ex. Your parent might be a holding company that does not file, and your Top Con might be a C-Corp that is a subsidiary of that holding company)
 
-Just like on the main page, the trash icon will delet the entity from the table, and clicking anywhere else will bring you to the return page.
+APP: Entities 
 
-APP: Return Like the main and entity pages before, you can click on the plus icon on the top right corner to create tax returns for the selected entity. Again, clicking the trash icon will remove the return, but clicking anywhere else on a return table row will do nothing.
+from the entities page, you can activate, deactivate, or create new entities as needed. 
 
-APP: Burger Menu The last part of the app is the burger menu which can be accessed from either the main, entity, or return pages by clicking the burger icon in the top left corner. From here the user can either click on the clients button, which will take them back to the main page or the logout button, which will do just that. create entity page
 
 TECHNOLOGY: Front End - React - Create React App - React Router - HTML5 - CSS3 (scratch - no frameworks)
 
@@ -50,6 +59,6 @@ Run npm test to ensure a stable build
 
 This is only the front end client, so develop locally you'll need the backend server as well.
 
-To get the backend up and running see https://github.com/BrandonWeiss2/taxhub-server
+To get the backend up and running see https://github.com/BrandonWeiss2/TaxHub_2.0_server
 
 Deployments are handled through Vercel and can be run via npm run deploy
