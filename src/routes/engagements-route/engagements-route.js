@@ -35,6 +35,14 @@ export default class EngagementsRoute extends Component {
       })
     })
   }
+
+  updateEngagementStatus = (status, index) => {
+    let engagements = this.state.engagements
+    engagements[index].engagementStatus = status
+    this.setState({
+      engagements: engagements
+    })
+  }
   
   renderEngagementCards = (status) => {
     return (
@@ -43,11 +51,13 @@ export default class EngagementsRoute extends Component {
         return (
           <EngagementCard 
             key={index}
+            index={index}
             clientId={this.props.match.params.id}
             engagementId={engagement.engagementId}
             filingYear={engagement.filingYear}
             engagementStatus={engagement.engagementStatus}
             engagementType={engagement.engagementType}
+            updateEngagementStatus={this.updateEngagementStatus}
           />
         )
       })

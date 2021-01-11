@@ -123,9 +123,10 @@ export default class EngagementCard extends Component {
     )
   }
 
-  handleMarkEngagementAsFinal = async (status) => {
+  handleUpdateEngagementStatus = async (status) => {
     await EngagementApiService.patchEngagementStatus(this.props.engagmentId, status)
-      await this.setState({ engagementStatus: status })
+    await this.setState({ engagementStatus: status })
+    await this.props.updateEngagementStatus(status, this.props.index)
   }
 
   render() {
@@ -133,7 +134,8 @@ export default class EngagementCard extends Component {
     if(!this.state.engagementStatus) {
       statusClass = 'statusInactiveEngagement'
     }
-    let precentCompleted = this.props.formsFinalized/this.props.totalForms
+    let precentCompleted = this.state.formsFinalized/this.state.totalForms
+    console.log('percet complete', precentCompleted)
     return (
       <div className='engagementCardContainer'>
         <div className='engagementCardHeader'>
@@ -146,8 +148,11 @@ export default class EngagementCard extends Component {
         <div className={this.state.engagementBodyClassName}>
           {this.renderEntities()}
           <div className='engagementCompleteButtonContainer'>
-            {precentCompleted === 1 && this.props.status !== 'FINAL' &&
-            <Button handleOnClick={() => this.handleMarkEngagementAsFinal('FINAL')} className='engagementCompleteButton' name='Mark Engagement as Completed'/>
+            {precentCompleted === 1 && this.props.engagementStatus !== 'FINAL' &&
+            <Button handleOnClick={() => this.handleUpdateEngagementStatus('FINAL')} className='engagementCompleteButton' name='Mark Engagement as Completed'/>
+            }
+            {this.props.engagementStatus === 'FINAL' &&
+            <Button handleOnClick={() => this.handleUpdateEngagementStatus('active')} className='engagementCompleteButton' name='Mark Engagement as Active'/>
             }
           </div>
         </div> 
